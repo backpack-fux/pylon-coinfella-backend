@@ -2,23 +2,23 @@
   "version": 2,
   "crons": [
     {
-      "path": "/dist/jobs/processCheckoutWorker",
+      "path": "/jobs/processCheckoutWorker",
       "schedule": "* * * * *"
     },
     {
-      "path": "/dist/jobs/kyc10MinutesWorker",
+      "path": "/jobs/kyc10MinutesWorker",
       "schedule": "* * * * *"
     },
     {
-      "path": "/dist/jobs/syncKycInAnHour",
+      "path": "/jobs/syncKycInAnHour",
       "schedule": "*/5 * * * *"
     },
     {
-      "path": "/dist/jobs/syncKycIn2Days",
+      "path": "/jobs/syncKycIn2Days",
       "schedule": "*/30 * * * *"
     },
     {
-      "path": "/dist/jobs/syncKycIn10Days",
+      "path": "/jobs/syncKycIn10Days",
       "schedule": "0 8 * * *"
     }
   ],
