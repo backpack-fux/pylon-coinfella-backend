@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/jobs/processCheckoutWorker",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/jobs/kyc10MinutesWorker",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/jobs/syncKycInAnHour",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/jobs/syncKycIn2Days",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/jobs/syncKycIn10Days",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}

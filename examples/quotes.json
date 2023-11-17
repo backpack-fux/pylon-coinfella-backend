@@ -1,0 +1,41 @@
+{
+  "data": {
+      "type": "quotes",
+      "id": "f71616ef-5ad5-4a98-9cc1-e8a246c72e1d",
+      "attributes": {
+          "asset-name": "ETH",
+          "base-amount": 200.0,
+          "created-at": "2023-03-07T02:17:11Z",
+          "delayed-settlement": false,
+          "executed-at": null,
+          "expires-at": "2023-03-07T02:17:16Z",
+          "fee-amount": 4.0,
+          "hot": false,
+          "trade-id": null,
+          "integrator-settled": false,
+          "price-per-unit": 1604.9119,
+          "rejected-at": null,
+          "settled-at": null,
+          "status": "pending",
+          "total-amount": 204.0,
+          "transaction-type": "buy",
+          "unit-count": 0.12461743
+      },
+      "links": {
+          "self": "/v2/quotes/f71616ef-5ad5-4a98-9cc1-e8a246c72e1d"
+      },
+      "relationships": {
+          "asset": {
+              "links": {
+                  "related": "/v2/assets/e63b0367-c47b-49be-987a-f14036b230cd"
+              }
+          },
+          "initiator-account": {
+              "links": {
+                  "related": "/v2/accounts/3125107e-fddd-488e-a6b5-3e2ca122d4ac"
+              }
+          }
+      }
+  },
+  "included": []
+}

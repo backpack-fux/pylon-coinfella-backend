@@ -1,0 +1,202 @@
+{
+  "data": {
+      "type": "accounts",
+      "id": "6eda1c37-425b-49a5-8398-6a93fb4aa304",
+      "attributes": {
+          "name": "Account mobile array",
+          "number": "420069014336",
+          "created-at": "2023-04-17T03:35:24Z",
+          "updated-at": "2023-04-17T03:58:51Z",
+          "contributions-frozen": false,
+          "disbursements-frozen": false,
+          "organization-label": "Account back-end matrix",
+          "statements": true,
+          "status": "opened",
+          "solid-freeze": false,
+          "offline-cold-storage": null,
+          "freeze-required-actions": [],
+          "freeze-not-required-actions": [
+              {
+                  "code": "NF01",
+                  "description": "Offboarding"
+              },
+              {
+                  "code": "NF02",
+                  "description": "Please provide proof of account ownership"
+              },
+              {
+                  "code": "NF03",
+                  "description": "Please complete and sign due diligence questionnaire and submit required documentation. Contact your Account Manager."
+              },
+              {
+                  "code": "NF04",
+                  "description": "Please contact Customer Support at support@primetrust.com or your Account Manager"
+              },
+              {
+                  "code": "NF05",
+                  "description": "Please contact billing@primetrust.com to settle outstanding invoices"
+              },
+              {
+                  "code": "NF06",
+                  "description": "Approve or deny wire recall request"
+              },
+              {
+                  "code": "NF07",
+                  "description": "Provide updated identity documentation"
+              },
+              {
+                  "code": "NF08",
+                  "description": "Please contact primetrust.inquiries@primetrust.com"
+              },
+              {
+                  "code": "NF09",
+                  "description": "Please contact fraudops@primetrust.com"
+              },
+              {
+                  "code": "NF10",
+                  "description": "Please Review Kyc required information"
+              }
+          ],
+          "uploaded-document-ids": [
+              "2eafdb44-12b6-4784-9ce4-a668860fc974",
+              "acd3c659-6141-4cd9-8ea3-8f7a3781aa9b"
+          ]
+      },
+      "links": {
+          "self": "/v2/accounts/6eda1c37-425b-49a5-8398-6a93fb4aa304"
+      },
+      "relationships": {
+          "account-asset-totals": {
+              "links": {
+                  "related": "/v2/account-asset-totals?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "account-cash-totals": {
+              "links": {
+                  "related": "/v2/account-cash-totals?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "account-transfer-authorizations": {
+              "links": {
+                  "related": "/v2/account-transfer-authorizations?to_account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "asset-transactions": {
+              "links": {
+                  "related": "/v2/asset-transactions?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "asset-transfers": {
+              "links": {
+                  "related": "/v2/asset-transfers?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "asset-transfer-methods": {
+              "links": {
+                  "related": "/v2/asset-transfer-methods?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "authorized-transfer-accounts": {
+              "links": {
+                  "related": "/v2/accounts/6eda1c37-425b-49a5-8398-6a93fb4aa304/authorized-transfer-accounts"
+              }
+          },
+          "beneficiaries": {
+              "links": {
+                  "related": "/v2/contacts?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&filter[account_roles in]=beneficary"
+              }
+          },
+          "cash-transactions": {
+              "links": {
+                  "related": "/v2/cash-transactions?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "contact-funds-transfer-references": {
+              "links": {
+                  "related": "/v2/contact-funds-transfer-references?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "contacts": {
+              "links": {
+                  "related": "/v2/contacts?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "funds-transfers": {
+              "links": {
+                  "related": "/v2/funds-transfers?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "grantors": {
+              "links": {
+                  "related": "/v2/contacts?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&filter[account_roles in]=grantor"
+              }
+          },
+          "owners": {
+              "links": {
+                  "related": "/v2/contacts?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&filter[account_roles in]=owner"
+              }
+          },
+          "owners-and-grantors": {
+              "links": {
+                  "related": "/v2/contacts?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&filter[account_roles in]=owner,grantor"
+              }
+          },
+          "account-histories": {
+              "links": {
+                  "related": "/v2/accounts/6eda1c37-425b-49a5-8398-6a93fb4aa304/account_histories"
+              }
+          },
+          "uploaded-documents": {
+              "links": {
+                  "related": "/v2/uploaded-documents?accounts.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "account-aggregate-policy": {
+              "links": {
+                  "related": "/v2/account-aggregate-policies?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&one"
+              }
+          },
+          "account-policy": {
+              "links": {
+                  "related": "/v2/account-policies?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&one"
+              }
+          },
+          "account-questionnaire": {
+              "links": {
+                  "related": "/v2/account-questionnaires?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304"
+              }
+          },
+          "account-type": {
+              "links": {
+                  "related": "/v2/account-types/custodial"
+              }
+          },
+          "account-sub-type": {
+              "links": {
+                  "related": "/v2/account-sub-types/traditional_custodial"
+              }
+          },
+          "latest-agreement": {
+              "links": {
+                  "related": "/v2/agreements?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&sort=-created-at&pages[size]=1&one"
+              }
+          },
+          "organization": {
+              "links": {
+                  "related": "/v2/organizations/1af1c46d-1dd5-4ce7-9a5f-2e6c71d9172e"
+              }
+          },
+          "rule-group": {
+              "links": {
+                  "related": "/v2/rule-groups?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&one"
+              }
+          },
+          "webhook-config": {
+              "links": {
+                  "related": "/v2/webhook-configs?account.id=6eda1c37-425b-49a5-8398-6a93fb4aa304&one"
+              }
+          }
+      }
+  },
+  "included": []
+}

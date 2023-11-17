@@ -1,0 +1,202 @@
+{
+  "data": {
+      "type": "contributions",
+      "id": "2f80cce5-f8a4-4b37-97a1-632b6bbcbfe7",
+      "attributes": {
+          "amount": 100.0,
+          "currency-type": "USD",
+          "amount-expected": 100.0,
+          "contributor-email": "pei+k@jxndao.com",
+          "contributor-name": "John Connor",
+          "created-at": "2023-03-07T03:03:25Z",
+          "funds-transfer-details": null,
+          "funds-transfer-type": "ach",
+          "same-day-ach": false,
+          "message": null,
+          "private-memo": null,
+          "reference": "CUSNTDAHQ",
+          "signet-deposit-address": null,
+          "special-instructions": null,
+          "special-type": null,
+          "status": "pending",
+          "resource-token-hash": null,
+          "funds-transfer-method-id": "60942900-ccac-45a3-8659-86ab1c303bfb",
+          "recurring": false,
+          "payment-details": null,
+          "payment-type": "ach",
+          "reference-number": "CUSNTDAHQ",
+          "transaction-number": null,
+          "previous-contribution-id": null,
+          "microservice-enabled": false,
+          "original-contribution-id": null
+      },
+      "links": {
+          "self": "/v2/contributions/2f80cce5-f8a4-4b37-97a1-632b6bbcbfe7"
+      },
+      "relationships": {
+          "original-contribution": {
+              "links": {
+                  "related": "/v2/contributions/"
+              }
+          },
+          "account": {
+              "links": {
+                  "related": "/v2/accounts/3125107e-fddd-488e-a6b5-3e2ca122d4ac"
+              }
+          },
+          "contact": {
+              "links": {
+                  "related": "/v2/contacts?funds-transfers.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+              }
+          },
+          "currency": {
+              "links": {
+                  "related": "/v2/currencies/USD"
+              }
+          },
+          "funds-transfer": {
+              "data": {
+                  "type": "funds-transfers",
+                  "id": "4c1320fa-38d1-477d-baed-eeeb99df5211"
+              }
+          },
+          "funds-transfer-method": {
+              "links": {
+                  "related": "/v2/funds-transfer-methods?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+              }
+          },
+          "payment-method": {
+              "links": {
+                  "related": "/v2/payment-methods?funds-transfers.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+              }
+          }
+      }
+  },
+  "included": [
+      {
+          "type": "funds-transfers",
+          "id": "4c1320fa-38d1-477d-baed-eeeb99df5211",
+          "attributes": {
+              "amount": 100.0,
+              "amount-expected": 100.0,
+              "cancelled-at": null,
+              "cancellation-details": null,
+              "clears-on": null,
+              "created-at": "2023-03-07T03:03:25Z",
+              "contingencies-cleared-at": null,
+              "contingencies-cleared-on": null,
+              "currency-type": "USD",
+              "equality-hash": "7f3a118c7f773c6c688db1672aac81fc",
+              "funds-source-name": "John James Doe",
+              "funds-transfer-type": "ach",
+              "nacha-individual-id": "4C1320FA38D1477",
+              "private-memo": null,
+              "received-chargeback": false,
+              "receiver-name": null,
+              "reference": "CUSNTDAHQ",
+              "review-reasons": null,
+              "reversed-amount": null,
+              "reversal-details": null,
+              "reversed-at": null,
+              "settled-at": null,
+              "settlement-details": null,
+              "signet-deposit-address": null,
+              "special-instructions": null,
+              "special-type": null,
+              "status": "pending",
+              "updated-at": "2023-03-07T03:03:25Z",
+              "wire-instructions": null,
+              "wire-instructions-intl": null,
+              "alt-currency-wire-instructions": null
+          },
+          "links": {
+              "self": "/v2/funds-transfers/4c1320fa-38d1-477d-baed-eeeb99df5211"
+          },
+          "relationships": {
+              "ach-originator": {
+                  "data": null
+              },
+              "children": {
+                  "links": {
+                      "related": "/v2/funds-transfers?parent.id=4c1320fa-38d1-477d-baed-eeeb99df5211"
+                  }
+              },
+              "contingent-holds": {
+                  "links": {
+                      "related": "/v2/contingent-holds?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211"
+                  }
+              },
+              "currency": {
+                  "links": {
+                      "related": "/v2/currencies/USD"
+                  }
+              },
+              "account": {
+                  "links": {
+                      "related": "/v2/accounts/3125107e-fddd-488e-a6b5-3e2ca122d4ac"
+                  }
+              },
+              "contact": {
+                  "links": {
+                      "related": "/v2/contacts/e01da1c4-f96c-460d-9d16-d90a5ffb1f13"
+                  }
+              },
+              "contribution": {
+                  "links": {
+                      "related": "/v2/contributions?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+                  }
+              },
+              "disbursement": {
+                  "links": {
+                      "related": "/v2/disbursements?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+                  }
+              },
+              "disbursement-authorization": {
+                  "links": {
+                      "related": "/v2/disbursement-authorizations?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211&one"
+                  }
+              },
+              "funds-transfer-method": {
+                  "links": {
+                      "related": "/v2/funds-transfer-methods/60942900-ccac-45a3-8659-86ab1c303bfb"
+                  }
+              },
+              "push-transfer-method": {
+                  "data": null
+              },
+              "incoming-wire-batch-row": {
+                  "links": {
+                      "related": "/v2/incoming-wire-batch-rows?funds-transfer.id=4c1320fa-38d1-477d-baed-eeeb99df5211"
+                  }
+              },
+              "parent": {
+                  "data": null
+              },
+              "refund": {
+                  "data": null
+              },
+              "reversed-cash-transaction": {
+                  "data": null
+              },
+              "settled-cash-transaction": {
+                  "data": null
+              },
+              "shortage-from-child": {
+                  "data": null
+              },
+              "surplus-to-child": {
+                  "data": null
+              },
+              "suspended-suspense-wire": {
+                  "data": null
+              },
+              "suspense-wire": {
+                  "data": null
+              },
+              "wire-initiator": {
+                  "data": null
+              }
+          }
+      }
+  ]
+}

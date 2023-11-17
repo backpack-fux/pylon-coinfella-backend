@@ -1,0 +1,128 @@
+[
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "35d568ac-d246-448c-a526-a2a00d1b90b5",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "update",
+      "data": { "changes": ["cip-cleared", "identity-confirmed"] },
+      "resource-id": "8bf6aca5-1b76-4e5a-8b81-2dd8894c7eb1",
+      "resource-type": "contacts",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "8bf6aca5-1b76-4e5a-8b81-2dd8894c7eb1",
+      "resource_type": "contacts"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:06.498Z",
+    "v": 0
+  },
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "d0035cae-1ac0-452f-9814-24b946cb6059",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "update",
+      "data": {},
+      "resource-id": "53ba6835-6d60-48c5-bf8d-acac6f78ea4e",
+      "resource-type": "cip_checks",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "53ba6835-6d60-48c5-bf8d-acac6f78ea4e",
+      "resource_type": "cip_checks"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:06.502Z",
+    "v": 0
+  },
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "e07a3096-a227-4aff-830d-3715d9464cd1",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "create",
+      "data": {},
+      "resource-id": "1371b846-eff0-4a20-956a-80789e1d8833",
+      "resource-type": "kyc_document_checks",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "1371b846-eff0-4a20-956a-80789e1d8833",
+      "resource_type": "kyc_document_checks"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:06.504Z",
+    "v": 0
+  },
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "d5197030-8e80-40e2-ad24-8c4b3ee51a64",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "create",
+      "data": { "changes": ["status"] },
+      "resource-id": "a87730e2-e429-4620-b3e8-3f570e247575",
+      "resource-type": "aml_checks",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "a87730e2-e429-4620-b3e8-3f570e247575",
+      "resource_type": "aml_checks"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:06.532Z",
+    "v": 0
+  },
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "197e4429-6e7e-4ea7-a45a-6e287d3b45a4",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "update",
+      "data": { "changes": ["aml-cleared"] },
+      "resource-id": "8bf6aca5-1b76-4e5a-8b81-2dd8894c7eb1",
+      "resource-type": "contacts",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "8bf6aca5-1b76-4e5a-8b81-2dd8894c7eb1",
+      "resource_type": "contacts"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:14.673Z",
+    "v": 0
+  },
+  {
+    "name": "NDJ-CHECKOUT",
+    "hostname": "ip-172-31-25-10",
+    "pid": 120811,
+    "level": 30,
+    "func": "webhookHandler",
+    "data": {
+      "id": "e3e83d9e-4614-4ddd-9799-382ea4c392e4",
+      "account-id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "action": "update",
+      "data": { "changes": ["status"] },
+      "resource-id": "1371b846-eff0-4a20-956a-80789e1d8833",
+      "resource-type": "kyc_document_checks",
+      "account_id": "41540bc4-66cf-4ff2-a760-497b7eb5bcef",
+      "resource_id": "1371b846-eff0-4a20-956a-80789e1d8833",
+      "resource_type": "kyc_document_checks"
+    },
+    "msg": "",
+    "time": "2023-06-06T22:17:29.112Z",
+    "v": 0
+  }
+]

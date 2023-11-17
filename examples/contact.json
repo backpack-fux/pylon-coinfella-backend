@@ -1,0 +1,210 @@
+{
+  "data": {
+      "type": "contacts",
+      "id": "b3a11650-a6b4-45da-bfd3-9cb55d107c97",
+      "attributes": {
+          "account-id": "ae380521-c2a9-44d0-89f2-ef7c322a499d",
+          "account-roles": [
+              "owner",
+              "tax form recipient"
+          ],
+          "aml-cleared": false,
+          "cip-cleared": false,
+          "contact-type": "natural_person",
+          "date-of-birth": "1971-01-01",
+          "date-of-incorporation": null,
+          "description-of-services": null,
+          "entity-sub-type": null,
+          "jurisdictions-of-business-activity": null,
+          "email": "pei+8@jxndao.com",
+          "identity-confirmed": false,
+          "identity-documents-verified": false,
+          "ip-address": "ac7c:89e4:6dd5:2ba9:bd26:633d:afb6:1e56",
+          "geolocation": "+40.6894-074.0447",
+          "contributions-frozen": false,
+          "disbursements-frozen": false,
+          "name": "John Connor",
+          "first-name": "John",
+          "middle-name": "",
+          "last-name": "Connor",
+          "proof-of-address-documents-verified": false,
+          "region-of-formation": null,
+          "sex": null,
+          "socure-document-id": null,
+          "tax-country": "US",
+          "tax-id-number": "111223333",
+          "tax-state": "NV",
+          "type": "natural-person",
+          "created-at": "2023-04-18T04:00:03Z",
+          "updated-at": "2023-04-18T04:00:03Z",
+          "ready-for-review": false,
+          "review-details": null,
+          "integrator-notes": null,
+          "identity-fingerprint": "5876c16ab68ac3d111adcfa2961d4332",
+          "kyc-required-actions": [],
+          "socure-device-id": null,
+          "marital-status": null,
+          "et-contact-id": null,
+          "duplicated-from-contact-id": null
+      },
+      "links": {
+          "self": "/v2/contacts/b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+      },
+      "relationships": {
+          "addresses": {
+              "links": {
+                  "related": "/v2/addresses?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "aml-checks": {
+              "links": {
+                  "related": "/v2/aml-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "asset-transfers": {
+              "links": {
+                  "related": "/v2/asset-transfers?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "asset-transfer-methods": {
+              "links": {
+                  "related": "/v2/asset-transfer-methods?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "cip-checks": {
+              "links": {
+                  "related": "/v2/cip-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "contact-funds-transfer-references": {
+              "links": {
+                  "related": "/v2/contact-funds-transfer-references?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "contact-beneficiaries": {
+              "links": {
+                  "related": "/v2/contact-beneficiaries?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "contributions": {
+              "links": {
+                  "related": "/v2/contributions?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "chargebacks": {
+              "links": {
+                  "related": "/v2/chargebacks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "disbursements": {
+              "links": {
+                  "related": "/v2/disbursements?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "contact-histories": {
+              "links": {
+                  "related": "/v2/contact-histories?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "from-contact-relationships": {
+              "links": {
+                  "related": "/v2/contact-relationships?from-contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "funds-transfer-methods": {
+              "links": {
+                  "related": "/v2/funds-transfer-methods?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "funds-transfers": {
+              "links": {
+                  "related": "/v2/funds-transfers?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "kyc-document-checks": {
+              "links": {
+                  "related": "/v2/kyc-document-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "payment-methods": {
+              "links": {
+                  "related": "/v2/payment-methods?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "phone-numbers": {
+              "links": {
+                  "related": "/v2/phone-numbers?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "related-from-contacts": {
+              "links": {
+                  "related": "/v2/contacts/b3a11650-a6b4-45da-bfd3-9cb55d107c97/related-from-contacts"
+              }
+          },
+          "related-to-contacts": {
+              "links": {
+                  "related": "/v2/contacts/b3a11650-a6b4-45da-bfd3-9cb55d107c97/related-to-contacts"
+              }
+          },
+          "to-contact-relationships": {
+              "links": {
+                  "related": "/v2/contact-relationships?to-contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "uploaded-documents": {
+              "links": {
+                  "related": "/v2/uploaded-documents?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97"
+              }
+          },
+          "account": {
+              "links": {
+                  "related": "/v2/accounts/ae380521-c2a9-44d0-89f2-ef7c322a499d"
+              }
+          },
+          "primary-address": {
+              "links": {
+                  "related": "/v2/addresses/845cdff8-641b-4d6c-a688-2d4db71ffa89"
+              }
+          },
+          "primary-contact": {
+              "data": null
+          },
+          "primary-phone-number": {
+              "links": {
+                  "related": "/v2/phone-numbers/b950ad15-87e4-404d-ac3c-f33f00151147"
+              }
+          },
+          "latest-cip-check": {
+              "links": {
+                  "related": "/v2/cip-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&sort=-created-at&limit=1"
+              }
+          },
+          "latest-aml-check": {
+              "links": {
+                  "related": "/v2/aml-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&sort=-created-at&limit=1"
+              }
+          },
+          "latest-contact-aml-check": {
+              "links": {
+                  "related": "/v2/aml-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&sort=-created-at&limit=1"
+              }
+          },
+          "latest-kyc-document-check": {
+              "links": {
+                  "related": "/v2/kyc-document-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&sort=-created-at&limit=1"
+              }
+          },
+          "latest-address-kyc-document-check": {
+              "links": {
+                  "related": "/v2/kyc-document-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&filter[proof_of_address eq]=true&sort=-created-at&limit=1&one"
+              }
+          },
+          "latest-identity-kyc-document-check": {
+              "links": {
+                  "related": "/v2/kyc-document-checks?contact.id=b3a11650-a6b4-45da-bfd3-9cb55d107c97&filter[identity eq]=true&sort=-created-at&limit=1&one"
+              }
+          }
+      }
+  },
+  "included": []
+}

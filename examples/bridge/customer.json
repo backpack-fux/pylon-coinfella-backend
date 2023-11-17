@@ -1,0 +1,16 @@
+{
+  "id": "801cfb01-d077-41ec-a3fb-edb34a7c73f9",
+  "email": "pei@gmail.com",
+  "first_name": "Pei",
+  "last_name": "Test",
+  "status": "active",
+  "future_requirements_due": ["id_verification"],
+  "requirements_due": ["external_account"],
+  "capabilities": {
+    "payin_crypto": "active",
+    "payout_crypto": "active",
+    "payin_fiat": "pending",
+    "payout_fiat": "pending"
+  },
+  "has_accepted_terms_of_service": true
+}
