@@ -1,7 +1,34 @@
 {
   "version": 2,
-  "buildCommand": "yarn build",
-  "outputDirectory": "dist",
+  "crons": [
+    {
+      "path": "/dist/jobs/processCheckoutWorker",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/dist/jobs/kyc10MinutesWorker",
+      "schedule": "* * * * *"
+    },
+    {
+      "path": "/dist/jobs/syncKycInAnHour",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/dist/jobs/syncKycIn2Days",
+      "schedule": "*/30 * * * *"
+    },
+    {
+      "path": "/dist/jobs/syncKycIn10Days",
+      "schedule": "0 8 * * *"
+    }
+  ],
+  "builds": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["dist/**"] }
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
