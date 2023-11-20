@@ -11,7 +11,6 @@ export const Config = {
   subscriptionUri: process.env.SUBSCRIPTION_URI,
   frontendUri:
     process.env.FRONT_END_URI || "https://test.checkout.mybackpack.app",
-  uri: process.env.URI || "https://test.checkout.mybackpack.app/api",
   defaultFee: {
     minFee: 4.5,
     fee: 6.5,

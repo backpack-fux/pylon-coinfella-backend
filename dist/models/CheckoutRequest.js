@@ -32,7 +32,7 @@ let CheckoutRequest = CheckoutRequest_1 = class CheckoutRequest extends sequeliz
 __decorate([
     sequelize_typescript_1.PrimaryKey,
     (0, sequelize_typescript_1.AllowNull)(false),
-    (0, sequelize_typescript_1.Default)(sequelize_typescript_1.DataType.UUIDV4),
+    (0, sequelize_typescript_1.Default)(sequelize_typescript_1.DataType.STRING(100)),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.UUID),
     __metadata("design:type", String)
 ], CheckoutRequest.prototype, "id", void 0);

@@ -54,16 +54,16 @@ let Checkout = class Checkout extends sequelize_typescript_1.Model {
         return (0, dinero_1.newDinero)(0, this.currency);
     }
     get amountMoney() {
-        return (0, dinero_1.newDinero)(this.amount * 100, this.currency);
+        return (0, dinero_1.newDinero)(Number(this.amount) * 100, this.currency);
     }
     get tipAmountMoney() {
         if (!this.tip) {
             return this.zeroMoney;
         }
         if (this.tipType === tip_type_1.TipType.Cash) {
-            return (0, dinero_1.newDinero)(this.tip * 100, this.currency);
+            return (0, dinero_1.newDinero)(Number(this.tip) * 100, this.currency);
         }
-        return this.amountMoney.multiply(this.tip / 100);
+        return this.amountMoney.multiply(Number(this.tip) / 100);
     }
     get fundsAmountMoney() {
         return this.amountMoney.add(this.tipAmountMoney);
@@ -90,12 +90,12 @@ let Checkout = class Checkout extends sequelize_typescript_1.Model {
             return this.zeroMoney;
         }
         if (this.feeType === tip_type_1.TipType.Cash) {
-            (0, dinero_1.newDinero)(this.fee * 100, this.currency);
+            (0, dinero_1.newDinero)(Number(this.fee) * 100, this.currency);
         }
-        return amountMoney.multiply(this.fee / 100);
+        return amountMoney.multiply(Number(this.fee) / 100);
     }
     getAssetTransferMoney(amount) {
-        const amountMoney = (0, dinero_1.newDinero)(amount * 100, this.currency);
+        const amountMoney = (0, dinero_1.newDinero)(Number(amount * 100), this.currency);
         if (this.feeMethod === feeMethod_enum_1.FeeMethod.Card) {
             return amountMoney;
         }
@@ -138,7 +138,7 @@ __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => CheckoutRequest_1.CheckoutRequest),
     (0, sequelize_typescript_1.AllowNull)(true),
     (0, sequelize_typescript_1.Default)(null),
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.UUID),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(100)),
     __metadata("design:type", String)
 ], Checkout.prototype, "checkoutRequestId", void 0);
 __decorate([

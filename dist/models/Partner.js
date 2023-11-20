@@ -173,7 +173,7 @@ __decorate([
 ], Partner.prototype, "country", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
-    (0, sequelize_typescript_1.Default)(0),
+    (0, sequelize_typescript_1.Default)(6.5),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.DECIMAL(10, 2)),
     __metadata("design:type", Number)
 ], Partner.prototype, "fee", void 0);

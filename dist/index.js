@@ -46,7 +46,7 @@ const runMigrations = async () => {
             if (err) {
                 console.log("========== failed run migrations ===============");
                 console.log(err);
-                // return reject(err);
+                return reject(err);
             }
             console.log(stdout);
             console.log(stderr);
@@ -55,7 +55,7 @@ const runMigrations = async () => {
                 if (err2) {
                     console.log("========== failed run seeds ===============");
                     console.log(err2);
-                    // return reject(err2);
+                    return reject(err2);
                 }
                 console.log(stdout2);
                 console.log(stderr2);

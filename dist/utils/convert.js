@@ -5,7 +5,7 @@ const chargeErrors_1 = require("../errors/chargeErrors");
 const dinero_1 = require("./dinero");
 const convertToCharge = (charge) => {
     var _a, _b, _c;
-    const chargeAmount = (0, dinero_1.newDinero)(charge.amount, charge.currency);
+    const chargeAmount = (0, dinero_1.newDinero)(Number(charge.amount), charge.currency);
     return {
         id: charge.id,
         status: charge.status,
@@ -43,20 +43,29 @@ const normalizeOrder = (checkoutRequest) => {
         last4: (_s = (_r = checkoutRequest.checkout) === null || _r === void 0 ? void 0 : _r.charge) === null || _s === void 0 ? void 0 : _s.last4,
         customer: {
             id: (_u = (_t = checkoutRequest.checkout) === null || _t === void 0 ? void 0 : _t.user) === null || _u === void 0 ? void 0 : _u.id,
-            firstName: ((_w = (_v = checkoutRequest.checkout) === null || _v === void 0 ? void 0 : _v.user) === null || _w === void 0 ? void 0 : _w.firstName) || ((_x = checkoutRequest.checkout) === null || _x === void 0 ? void 0 : _x.firstName),
-            lastName: ((_z = (_y = checkoutRequest.checkout) === null || _y === void 0 ? void 0 : _y.user) === null || _z === void 0 ? void 0 : _z.lastName) || ((_0 = checkoutRequest.checkout) === null || _0 === void 0 ? void 0 : _0.lastName),
-            email: ((_2 = (_1 = checkoutRequest.checkout) === null || _1 === void 0 ? void 0 : _1.user) === null || _2 === void 0 ? void 0 : _2.email) || ((_3 = checkoutRequest.checkout) === null || _3 === void 0 ? void 0 : _3.email),
-            phoneNumber: ((_5 = (_4 = checkoutRequest.checkout) === null || _4 === void 0 ? void 0 : _4.user) === null || _5 === void 0 ? void 0 : _5.phoneNumber) || ((_6 = checkoutRequest.checkout) === null || _6 === void 0 ? void 0 : _6.phoneNumber),
+            firstName: ((_w = (_v = checkoutRequest.checkout) === null || _v === void 0 ? void 0 : _v.user) === null || _w === void 0 ? void 0 : _w.firstName) ||
+                ((_x = checkoutRequest.checkout) === null || _x === void 0 ? void 0 : _x.firstName),
+            lastName: ((_z = (_y = checkoutRequest.checkout) === null || _y === void 0 ? void 0 : _y.user) === null || _z === void 0 ? void 0 : _z.lastName) ||
+                ((_0 = checkoutRequest.checkout) === null || _0 === void 0 ? void 0 : _0.lastName),
+            email: ((_2 = (_1 = checkoutRequest.checkout) === null || _1 === void 0 ? void 0 : _1.user) === null || _2 === void 0 ? void 0 : _2.email) ||
+                ((_3 = checkoutRequest.checkout) === null || _3 === void 0 ? void 0 : _3.email),
+            phoneNumber: ((_5 = (_4 = checkoutRequest.checkout) === null || _4 === void 0 ? void 0 : _4.user) === null || _5 === void 0 ? void 0 : _5.phoneNumber) ||
+                ((_6 = checkoutRequest.checkout) === null || _6 === void 0 ? void 0 : _6.phoneNumber),
             ssn: (_8 = (_7 = checkoutRequest.checkout) === null || _7 === void 0 ? void 0 : _7.user) === null || _8 === void 0 ? void 0 : _8.ssn,
             dob: (_10 = (_9 = checkoutRequest.checkout) === null || _9 === void 0 ? void 0 : _9.user) === null || _10 === void 0 ? void 0 : _10.dob,
             status: (_12 = (_11 = checkoutRequest.checkout) === null || _11 === void 0 ? void 0 : _11.user) === null || _12 === void 0 ? void 0 : _12.status,
-            streetAddress: ((_14 = (_13 = checkoutRequest.checkout) === null || _13 === void 0 ? void 0 : _13.user) === null || _14 === void 0 ? void 0 : _14.streetAddress) || ((_15 = checkoutRequest.checkout) === null || _15 === void 0 ? void 0 : _15.streetAddress),
-            streetAddress2: ((_17 = (_16 = checkoutRequest.checkout) === null || _16 === void 0 ? void 0 : _16.user) === null || _17 === void 0 ? void 0 : _17.streetAddress2) || ((_18 = checkoutRequest.checkout) === null || _18 === void 0 ? void 0 : _18.streetAddress2),
+            streetAddress: ((_14 = (_13 = checkoutRequest.checkout) === null || _13 === void 0 ? void 0 : _13.user) === null || _14 === void 0 ? void 0 : _14.streetAddress) ||
+                ((_15 = checkoutRequest.checkout) === null || _15 === void 0 ? void 0 : _15.streetAddress),
+            streetAddress2: ((_17 = (_16 = checkoutRequest.checkout) === null || _16 === void 0 ? void 0 : _16.user) === null || _17 === void 0 ? void 0 : _17.streetAddress2) ||
+                ((_18 = checkoutRequest.checkout) === null || _18 === void 0 ? void 0 : _18.streetAddress2),
             city: ((_20 = (_19 = checkoutRequest.checkout) === null || _19 === void 0 ? void 0 : _19.user) === null || _20 === void 0 ? void 0 : _20.city) || ((_21 = checkoutRequest.checkout) === null || _21 === void 0 ? void 0 : _21.city),
-            postalCode: ((_23 = (_22 = checkoutRequest.checkout) === null || _22 === void 0 ? void 0 : _22.user) === null || _23 === void 0 ? void 0 : _23.postalCode) || ((_24 = checkoutRequest.checkout) === null || _24 === void 0 ? void 0 : _24.postalCode),
-            state: ((_26 = (_25 = checkoutRequest.checkout) === null || _25 === void 0 ? void 0 : _25.user) === null || _26 === void 0 ? void 0 : _26.state) || ((_27 = checkoutRequest.checkout) === null || _27 === void 0 ? void 0 : _27.state),
-            country: ((_29 = (_28 = checkoutRequest.checkout) === null || _28 === void 0 ? void 0 : _28.user) === null || _29 === void 0 ? void 0 : _29.country) || ((_30 = checkoutRequest.checkout) === null || _30 === void 0 ? void 0 : _30.country),
-        }
+            postalCode: ((_23 = (_22 = checkoutRequest.checkout) === null || _22 === void 0 ? void 0 : _22.user) === null || _23 === void 0 ? void 0 : _23.postalCode) ||
+                ((_24 = checkoutRequest.checkout) === null || _24 === void 0 ? void 0 : _24.postalCode),
+            state: ((_26 = (_25 = checkoutRequest.checkout) === null || _25 === void 0 ? void 0 : _25.user) === null || _26 === void 0 ? void 0 : _26.state) ||
+                ((_27 = checkoutRequest.checkout) === null || _27 === void 0 ? void 0 : _27.state),
+            country: ((_29 = (_28 = checkoutRequest.checkout) === null || _28 === void 0 ? void 0 : _28.user) === null || _29 === void 0 ? void 0 : _29.country) ||
+                ((_30 = checkoutRequest.checkout) === null || _30 === void 0 ? void 0 : _30.country),
+        },
     };
 };
 exports.normalizeOrder = normalizeOrder;
