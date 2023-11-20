@@ -2,7 +2,7 @@ import { chargeMessages } from "../errors/chargeErrors";
 import { Charge } from "../models/Charge";
 import { CheckoutRequest } from "../models/CheckoutRequest";
 import { OrderPayload } from "../models/Partner";
-import { newDinero } from "./dinero";
+import { newDinero } from "./currency";
 
 export const convertToCharge = (charge: any): Charge => {
   const chargeAmount = newDinero(Number(charge.amount), charge.currency);

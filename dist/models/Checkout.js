@@ -36,7 +36,7 @@ exports.Checkout = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const paidStatus_type_1 = require("../types/paidStatus.type");
 const tip_type_1 = require("../types/tip.type");
-const dinero_1 = require("../utils/dinero");
+const currency_1 = require("../utils/currency");
 const CheckoutRequest_1 = require("./CheckoutRequest");
 const User_1 = require("./User");
 const Charge_1 = require("./Charge");
@@ -51,17 +51,17 @@ let Checkout = class Checkout extends sequelize_typescript_1.Model {
         return `${this.firstName} ${this.lastName}`;
     }
     get zeroMoney() {
-        return (0, dinero_1.newDinero)(0, this.currency);
+        return (0, currency_1.newDinero)(0, this.currency);
     }
     get amountMoney() {
-        return (0, dinero_1.newDinero)(Number(this.amount) * 100, this.currency);
+        return (0, currency_1.newDinero)(Number(this.amount) * 100, this.currency);
     }
     get tipAmountMoney() {
         if (!this.tip) {
             return this.zeroMoney;
         }
         if (this.tipType === tip_type_1.TipType.Cash) {
-            return (0, dinero_1.newDinero)(Number(this.tip) * 100, this.currency);
+            return (0, currency_1.newDinero)(Number(this.tip) * 100, this.currency);
         }
         return this.amountMoney.multiply(Number(this.tip) / 100);
     }
@@ -73,7 +73,7 @@ let Checkout = class Checkout extends sequelize_typescript_1.Model {
             return this.zeroMoney;
         }
         if (this.feeType === tip_type_1.TipType.Cash) {
-            return (0, dinero_1.newDinero)(this.fee * 100, this.currency);
+            return (0, currency_1.newDinero)(this.fee * 100, this.currency);
         }
         return this.fundsAmountMoney.multiply(this.fee / 100);
     }
@@ -85,17 +85,17 @@ let Checkout = class Checkout extends sequelize_typescript_1.Model {
         return this.fundsAmountMoney;
     }
     getUSDCFeeMoney(amount) {
-        const amountMoney = (0, dinero_1.newDinero)(amount * 100, this.currency);
+        const amountMoney = (0, currency_1.newDinero)(amount * 100, this.currency);
         if (this.feeMethod === feeMethod_enum_1.FeeMethod.Card) {
             return this.zeroMoney;
         }
         if (this.feeType === tip_type_1.TipType.Cash) {
-            (0, dinero_1.newDinero)(Number(this.fee) * 100, this.currency);
+            (0, currency_1.newDinero)(Number(this.fee) * 100, this.currency);
         }
         return amountMoney.multiply(Number(this.fee) / 100);
     }
     getAssetTransferMoney(amount) {
-        const amountMoney = (0, dinero_1.newDinero)(Number(amount * 100), this.currency);
+        const amountMoney = (0, currency_1.newDinero)(Number(amount * 100), this.currency);
         if (this.feeMethod === feeMethod_enum_1.FeeMethod.Card) {
             return amountMoney;
         }

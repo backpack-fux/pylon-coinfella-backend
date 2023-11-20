@@ -1,16 +1,13 @@
-const Dinero = require("dinero.js");
+import Dinero from 'dinero.js';
 
 export const isInstanceOfDinero = (money: Dinero.Dinero): boolean => {
   // Lets assume that money is Dinero instance if the money has getAmount and getCurrency property
   return !!(money && money.getAmount && money.getCurrency);
 };
 
-export function newDinero(
-  amountInCents: number,
-  currency: string = "USD"
-): Dinero.Dinero {
+export function newDinero(amountInCents: number, currency: string = 'USD'): Dinero.Dinero {
   if (isNaN(amountInCents)) {
-    throw new Error("amount should be a number");
+    throw new Error('amount should be a number');
   }
 
   // amount is comming as cent, so we round it to integer
@@ -20,10 +17,7 @@ export function newDinero(
   return Dinero({ amount: rounderAmountInCents, currency });
 }
 
-export function newDineroDollars(
-  amountInDollars: number,
-  currency: string = "USD"
-): Dinero.Dinero {
+export function newDineroDollars(amountInDollars: number, currency: string = 'USD'): Dinero.Dinero {
   return newDinero(amountInDollars * 100, currency);
 }
 

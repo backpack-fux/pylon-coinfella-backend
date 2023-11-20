@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.normalizeOrder = exports.convertToCharge = void 0;
 const chargeErrors_1 = require("../errors/chargeErrors");
-const dinero_1 = require("./dinero");
+const currency_1 = require("./currency");
 const convertToCharge = (charge) => {
     var _a, _b, _c;
-    const chargeAmount = (0, dinero_1.newDinero)(Number(charge.amount), charge.currency);
+    const chargeAmount = (0, currency_1.newDinero)(Number(charge.amount), charge.currency);
     return {
         id: charge.id,
         status: charge.status,

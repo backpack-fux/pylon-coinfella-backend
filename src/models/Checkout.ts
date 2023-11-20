@@ -13,7 +13,7 @@ import {
 } from "sequelize-typescript";
 import { PaidStatus } from "../types/paidStatus.type";
 import { TipType } from "../types/tip.type";
-import { newDinero } from "../utils/dinero";
+import { newDinero } from "../utils/currency";
 import { CheckoutRequest } from "./CheckoutRequest";
 import { User } from "./User";
 import { Charge } from "./Charge";
