@@ -42,25 +42,35 @@ const resError_1 = require("./middleware/resError");
 const child_process_1 = require("child_process");
 const runMigrations = async () => {
     return new Promise((resolve, reject) => {
-        (0, child_process_1.exec)("yarn sequelize db:migrate", (err, stdout, stderr) => {
+        (0, child_process_1.exec)("yarn install", (err, stdout, stderr) => {
             if (err) {
-                console.log("========== failed run migrations ===============");
+                console.log("========== failed install ===============");
                 console.log(err);
                 return reject(err);
             }
             console.log(stdout);
             console.log(stderr);
-            console.log("========== finished migrations ===============");
-            (0, child_process_1.exec)("yarn sequelize db:seed:all", (err2, stdout2, stderr2) => {
-                if (err2) {
-                    console.log("========== failed run seeds ===============");
-                    console.log(err2);
-                    return reject(err2);
+            console.log("========== finished install ===============");
+            (0, child_process_1.exec)("yarn sequelize db:migrate", (err, stdout, stderr) => {
+                if (err) {
+                    console.log("========== failed run migrations ===============");
+                    console.log(err);
+                    return reject(err);
                 }
-                console.log(stdout2);
-                console.log(stderr2);
-                console.log("========== finished seeds ===============");
-                resolve(true);
+                console.log(stdout);
+                console.log(stderr);
+                console.log("========== finished migrations ===============");
+                (0, child_process_1.exec)("yarn sequelize db:seed:all", (err2, stdout2, stderr2) => {
+                    if (err2) {
+                        console.log("========== failed run seeds ===============");
+                        console.log(err2);
+                        return reject(err2);
+                    }
+                    console.log(stdout2);
+                    console.log(stderr2);
+                    console.log("========== finished seeds ===============");
+                    resolve(true);
+                });
             });
         });
     });
