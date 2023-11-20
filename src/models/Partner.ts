@@ -108,7 +108,7 @@ export class Partner extends Model<Partner> {
   country!: string;
 
   @AllowNull(false)
-  @Default(0)
+  @Default(6.5)
   @Column(DataType.DECIMAL(10, 2))
   fee!: number;
 

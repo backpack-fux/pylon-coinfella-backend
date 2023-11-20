@@ -59,11 +59,11 @@ export class CheckoutService {
         throw new Error("Mismatch email address");
       }
 
-      if (checkoutRequest.amount !== data.amount) {
+      if (Number(checkoutRequest.amount) !== Number(data.amount)) {
         throw new Error("Mismatch amount");
       }
 
-      if (data.fee && checkoutRequest.fee !== data.fee) {
+      if (data.fee && Number(checkoutRequest.fee) !== Number(data.fee)) {
         throw new Error("Mismatch fee");
       }
 

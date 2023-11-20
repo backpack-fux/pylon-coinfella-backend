@@ -8,7 +8,7 @@ const config = {
     port: process.env.DB_PORT,
     charset: 'utf8',
     collate: 'utf8_general_ci',
-    dialect: 'mysql',
+    dialect: 'postgres',
     dialectOptions: {
         decimalNumbers: true,
     },

@@ -1,7 +1,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('checkouts', 'checkoutRequestId', {
-      type: Sequelize.UUID,
+      type: Sequelize.STRING(100),
       allowNull: true,
       defaultValue: null
     }, { logging: console.log });

@@ -31,7 +31,7 @@ import { FeeMethod } from "../types/feeMethod.enum";
 export class CheckoutRequest extends Model<CheckoutRequest> {
   @PrimaryKey
   @AllowNull(false)
-  @Default(DataType.UUIDV4)
+  @Default(DataType.STRING(100))
   @Column(DataType.UUID)
   id!: string;
 

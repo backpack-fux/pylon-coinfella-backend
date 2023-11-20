@@ -1,10 +1,15 @@
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-require('dotenv').config();
+import * as pg from "pg";
 
-const sequelizeConfig: SequelizeOptions = require('../sequelize/config');
-import { IDbModels } from './models';
+import { Sequelize, SequelizeOptions } from "sequelize-typescript";
+require("dotenv").config();
 
-const sequelize = new Sequelize(sequelizeConfig);
+const sequelizeConfig: SequelizeOptions = require("../sequelize/config");
+import { IDbModels } from "./models";
+
+const sequelize = new Sequelize({
+  ...sequelizeConfig,
+  dialectModule: pg,
+});
 
 type ISequelize = IDbModels & { sequelize: Sequelize };
 const db = <ISequelize>(<unknown>sequelize.models);

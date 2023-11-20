@@ -2,7 +2,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('checkoutRequests', {
       id: {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING(100),
         primaryKey: true,
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
@@ -52,7 +52,6 @@ module.exports = {
       },
       updatedAt: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         allowNull: false,
       },
     }, {

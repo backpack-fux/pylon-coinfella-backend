@@ -40,7 +40,7 @@ export class Checkout extends Model<Checkout> {
   @ForeignKey(() => CheckoutRequest)
   @AllowNull(true)
   @Default(null)
-  @Column(DataType.UUID)
+  @Column(DataType.STRING(100))
   checkoutRequestId!: string;
 
   @ForeignKey(() => User)
@@ -175,7 +175,7 @@ export class Checkout extends Model<Checkout> {
   }
 
   get amountMoney() {
-    return newDinero(this.amount * 100, this.currency);
+    return newDinero(Number(this.amount) * 100, this.currency);
   }
 
   get tipAmountMoney() {
@@ -184,10 +184,10 @@ export class Checkout extends Model<Checkout> {
     }
 
     if (this.tipType === TipType.Cash) {
-      return newDinero(this.tip * 100, this.currency);
+      return newDinero(Number(this.tip) * 100, this.currency);
     }
 
-    return this.amountMoney.multiply(this.tip / 100);
+    return this.amountMoney.multiply(Number(this.tip) / 100);
   }
 
   get fundsAmountMoney() {
@@ -223,14 +223,14 @@ export class Checkout extends Model<Checkout> {
     }
 
     if (this.feeType === TipType.Cash) {
-      newDinero(this.fee * 100, this.currency);
+      newDinero(Number(this.fee) * 100, this.currency);
     }
 
-    return amountMoney.multiply(this.fee / 100);
+    return amountMoney.multiply(Number(this.fee) / 100);
   }
 
   getAssetTransferMoney(amount: number) {
-    const amountMoney = newDinero(amount * 100, this.currency);
+    const amountMoney = newDinero(Number(amount * 100), this.currency);
 
     if (this.feeMethod === FeeMethod.Card) {
       return amountMoney;
