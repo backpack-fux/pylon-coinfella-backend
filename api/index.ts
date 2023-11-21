@@ -28,7 +28,7 @@ const bootstrap = async () => {
   app.use(cors());
   app.use(resError);
   app.use(bodyParser.json());
-  initAuth(app);
+  // initAuth(app);
   initRoutes(app);
   await initGraphql(app);
 
