@@ -9,6 +9,7 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import type http from "http";
 import { authMiddlewareForGraphql } from "./middleware/auth";
 import { customAuthChecker } from "./auth/authChecker";
+import path from "path";
 
 const context = ({ req, connection }: { req: any; connection: any }) => {
   if (connection) {
@@ -22,7 +23,7 @@ const context = ({ req, connection }: { req: any; connection: any }) => {
 
 export const initGraphql = async (app: Express) => {
   let resolversPattern: NonEmptyArray<string> = [
-    `${__dirname}/resolvers/*.resolver.js`,
+    path.resolve(__dirname, "/resolvers/*.resolver.js"),
   ];
 
   console.log("==========------------------");
@@ -31,7 +32,7 @@ export const initGraphql = async (app: Express) => {
   console.log("Config.isStaging", Config.isStaging);
 
   if (!Config.isProduction && !Config.isStaging) {
-    resolversPattern = [`${__dirname}/resolvers/*.resolver.ts`];
+    resolversPattern = [path.resolve(__dirname, "/resolvers/*.resolver.ts")];
   }
 
   console.log("resolversPattern=======================");
