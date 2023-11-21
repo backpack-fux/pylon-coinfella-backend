@@ -4,6 +4,8 @@ import cors from "cors";
 import { resError } from "../src/middleware/resError";
 import { initAuth } from "../src/auth";
 import { initGraphql } from "../src/graphql";
+import bodyParser from "body-parser";
+import { initRoutes } from "../src/routes";
 
 const bootstrap = async () => {
   const app = express();
@@ -16,7 +18,11 @@ const bootstrap = async () => {
 
   app.use(cors());
   app.use(resError);
+  app.use(bodyParser.json());
   initAuth(app);
+  initRoutes(app);
+  await initGraphql(app);
+
   await initGraphql(app);
 
   return app;

@@ -11,6 +11,8 @@ import type http from "http";
 import { authMiddlewareForGraphql } from "./middleware/auth";
 import { customAuthChecker } from "./auth/authChecker";
 import path from "path";
+import { UserResolver } from "./resolvers/user.resolver";
+import { CheckoutRequestResolver } from "./resolvers/checkoutRequest.resolver";
 
 const context = ({ req, connection }: { req: any; connection: any }) => {
   if (connection) {
@@ -23,23 +25,8 @@ const context = ({ req, connection }: { req: any; connection: any }) => {
 };
 
 export const initGraphql = async (app: Express) => {
-  let resolversPattern: NonEmptyArray<string> = [
-    path.resolve(__dirname, "/resolvers/*.resolver.js"),
-  ];
-
-  console.log("==========------------------");
-  console.log(__dirname);
-  console.log("Config.isProduction", Config.isProduction);
-  console.log("Config.isStaging", Config.isStaging);
-
-  if (!Config.isProduction && !Config.isStaging) {
-    resolversPattern = [path.resolve(__dirname, "/resolvers/*.resolver.ts")];
-  }
-
-  console.log("resolversPattern=======================");
-  console.log(resolversPattern);
   const schema = await buildSchema({
-    resolvers: [CheckoutResolver],
+    resolvers: [UserResolver, CheckoutResolver, CheckoutRequestResolver],
     authChecker: customAuthChecker,
     container: Container,
   });
