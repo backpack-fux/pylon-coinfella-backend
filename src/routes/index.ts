@@ -1,7 +1,7 @@
 // Dependencies
-import * as fs from 'fs';
-import * as path from 'path';
-import * as express from 'express';
+import * as fs from "fs";
+import * as path from "path";
+import * as express from "express";
 
 const walkSync = (dir: string, filelistParam: string[] = []) => {
   let filelist = filelistParam;
@@ -18,14 +18,12 @@ const walkSync = (dir: string, filelistParam: string[] = []) => {
 const fileList = walkSync(__dirname);
 
 const filterTypes = (filePath: string) => {
-  return filePath.endsWith('.ts') || filePath.endsWith('.js');
+  return filePath.endsWith(".ts") || filePath.endsWith(".js");
 };
 
 const noIndexFile = (filePath: string) => !/index/.test(filePath);
 
-const routePaths = fileList
-  .filter(filterTypes)
-  .filter(noIndexFile);
+const routePaths = fileList.filter(filterTypes).filter(noIndexFile);
 
 export const initRoutes = async (app: express.Application) => {
   routePaths.forEach((routePath) => {
@@ -33,10 +31,10 @@ export const initRoutes = async (app: express.Application) => {
 
     // check if a route exports multiple things, and
     // not a single route function it will export an object
-    if (typeof route !== 'function' && route.router) {
+    if (typeof route !== "function" && route.router) {
       route = route.router;
     }
 
-    app.use('/', route);
+    app.use("/", route);
   });
 };

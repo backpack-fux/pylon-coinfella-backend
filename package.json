@@ -11,11 +11,12 @@
     "staging": "NODE_ENV=staging pm2 start dist/index.js",
     "kyc-job": "NODE_ENV=production pm2 start dist/jobs/kycJobs.js",
     "production": "NODE_ENV=production pm2 start dist/index.js",
-    "build": "tsc --extendedDiagnostics && yarn copy-assets",
+    "build": "tsc --extendedDiagnostics",
     "build:schema": "gql-gen",
     "sequelize": "sequelize-cli",
     "enable-webhook": "TS_NODE_FILES=true node_modules/.bin/ts-node src/scripts/enableWebhook.ts",
     "copy-assets": "ts-node src/scripts/copyAssets",
+    "copy-modules": "ts-node src/scripts/copyModules",
     "reload": "pm2 reload index --update-env && pm2 reload kycJobs --update-env"
   },
   "dependencies": {

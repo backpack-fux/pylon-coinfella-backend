@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "lib": ["es2018", "esnext.asynciterable"],
+    "lib": [
+      "es2018",
+      "esnext.asynciterable"
+    ],
     "module": "commonjs",
-    "outDir": "./dist",
+    "outDir": ".",
+    "rootDir": ".",
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
@@ -11,10 +15,12 @@
     "emitDecoratorMetadata": true,
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./api/**/*"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "**/*.js"
   ]
 }

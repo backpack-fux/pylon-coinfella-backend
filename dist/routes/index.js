@@ -39,21 +39,19 @@ const walkSync = (dir, filelistParam = []) => {
 // Get the array of file paths
 const fileList = walkSync(__dirname);
 const filterTypes = (filePath) => {
-    return filePath.endsWith('.ts') || filePath.endsWith('.js');
+    return filePath.endsWith(".ts") || filePath.endsWith(".js");
 };
 const noIndexFile = (filePath) => !/index/.test(filePath);
-const routePaths = fileList
-    .filter(filterTypes)
-    .filter(noIndexFile);
+const routePaths = fileList.filter(filterTypes).filter(noIndexFile);
 const initRoutes = async (app) => {
     routePaths.forEach((routePath) => {
         let route = require(routePath);
         // check if a route exports multiple things, and
         // not a single route function it will export an object
-        if (typeof route !== 'function' && route.router) {
+        if (typeof route !== "function" && route.router) {
             route = route.router;
         }
-        app.use('/', route);
+        app.use("/", route);
     });
 };
 exports.initRoutes = initRoutes;
