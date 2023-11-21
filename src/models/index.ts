@@ -8,8 +8,6 @@ import { IDbModels } from "./models";
 
 const sequelize = new Sequelize({
   ...sequelizeConfig,
-  ssl: true,
-  native: true,
   dialectModule: pg,
 });
 

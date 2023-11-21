@@ -17,7 +17,6 @@ const config = {
     },
     decimalNumbers: true,
   },
-  ssl: true,
   pool: {
     max: 100,
     min: 0,
