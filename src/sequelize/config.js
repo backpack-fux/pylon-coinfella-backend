@@ -11,6 +11,10 @@ const config = {
   collate: 'utf8_general_ci',
   dialect: 'postgres',
   dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    },
     decimalNumbers: true,
   },
   ssl: true,
