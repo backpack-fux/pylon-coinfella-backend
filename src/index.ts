@@ -54,9 +54,6 @@ const { sequelize } = models;
 async function bootstrap() {
   try {
     await sequelize.authenticate();
-
-    await runMigrations();
-    log.info("Database connection has been established successfully.");
   } catch (err) {
     log.warn(
       {
