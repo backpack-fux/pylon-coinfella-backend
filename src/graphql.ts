@@ -34,6 +34,8 @@ export const initGraphql = async (app: Express) => {
     resolversPattern = [`${__dirname}/resolvers/*.resolver.ts`];
   }
 
+  console.log("resolversPattern=======================");
+  console.log(resolversPattern);
   const schema = await buildSchema({
     resolvers: resolversPattern,
     authChecker: customAuthChecker,
