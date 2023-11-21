@@ -20,7 +20,7 @@ const context = ({ req, connection }: { req: any; connection: any }) => {
   };
 };
 
-export const initGraphql = async (app: Express, httpServer: http.Server) => {
+export const initGraphql = async (app: Express) => {
   let resolversPattern: NonEmptyArray<string> = [
     `${__dirname}/resolvers/*.resolver.js`,
   ];
@@ -38,11 +38,7 @@ export const initGraphql = async (app: Express, httpServer: http.Server) => {
   const server = new ApolloServer({
     schema,
     context,
-    plugins: [
-      // Proper shutdown for the HTTP server.
-      // @ts-ignore
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-    ],
+    plugins: [],
   });
 
   await server.start();

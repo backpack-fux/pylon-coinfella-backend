@@ -74,7 +74,7 @@ async function bootstrap() {
   app.use(bodyParser.json());
   initAuth(app);
   initRoutes(app);
-  await initGraphql(app, httpServer);
+  await initGraphql(app);
 
   const port = process.env.PORT || 4000;
 
