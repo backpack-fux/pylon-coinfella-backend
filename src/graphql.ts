@@ -25,6 +25,11 @@ export const initGraphql = async (app: Express) => {
     `${__dirname}/resolvers/*.resolver.js`,
   ];
 
+  console.log("==========------------------");
+  console.log(__dirname);
+  console.log("Config.isProduction", Config.isProduction);
+  console.log("Config.isStaging", Config.isStaging);
+
   if (!Config.isProduction && !Config.isStaging) {
     resolversPattern = [`${__dirname}/resolvers/*.resolver.ts`];
   }
