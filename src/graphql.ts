@@ -5,6 +5,7 @@ import * as _ from "lodash";
 
 import { Config } from "./config";
 import { Express } from "express";
+import { CheckoutResolver } from "./resolvers/checkout.resolver";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import type http from "http";
 import { authMiddlewareForGraphql } from "./middleware/auth";
@@ -38,7 +39,7 @@ export const initGraphql = async (app: Express) => {
   console.log("resolversPattern=======================");
   console.log(resolversPattern);
   const schema = await buildSchema({
-    resolvers: resolversPattern,
+    resolvers: [CheckoutResolver],
     authChecker: customAuthChecker,
     container: Container,
   });
