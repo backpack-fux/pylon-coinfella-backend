@@ -19,6 +19,12 @@ const bootstrap = async () => {
     return res.send("Coinfella api" + process.env.NODE_ENV);
   });
 
+  app.post("/", (_req: Request, res: Response) => {
+    return res.status(201).json({
+      message: "Created your account successfully.",
+    });
+  });
+
   app.use(cors());
   app.use(resError);
   app.use(bodyParser.json());
