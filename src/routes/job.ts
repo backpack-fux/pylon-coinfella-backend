@@ -11,7 +11,7 @@ const kycService = KycService.getInstance();
 
 const router = express.Router();
 
-router.post("/jobs/processCheckoutWorker", async (req, res) => {
+router.get("/jobs/processCheckoutWorker", async (req, res) => {
   try {
     const checkouts = await Checkout.findAll({
       where: {
@@ -67,7 +67,7 @@ router.post("/jobs/processCheckoutWorker", async (req, res) => {
   }
 });
 
-router.post("/jobs/kyc10MinutesWorker", async (req, res) => {
+router.get("/jobs/kyc10MinutesWorker", async (req, res) => {
   try {
     await kycService.syncKycIn10Minutes();
 
@@ -89,7 +89,7 @@ router.post("/jobs/kyc10MinutesWorker", async (req, res) => {
   }
 });
 
-router.post("/jobs/syncKycInAnHour", async (req, res) => {
+router.get("/jobs/syncKycInAnHour", async (req, res) => {
   try {
     await kycService.syncKycInAnHour();
 
@@ -111,7 +111,7 @@ router.post("/jobs/syncKycInAnHour", async (req, res) => {
   }
 });
 
-router.post("/jobs/syncKycIn2Days", async (req, res) => {
+router.get("/jobs/syncKycIn2Days", async (req, res) => {
   try {
     await kycService.syncKycIn2Days();
 
@@ -133,7 +133,7 @@ router.post("/jobs/syncKycIn2Days", async (req, res) => {
   }
 });
 
-router.post("/jobs/syncKycIn10Days", async (req, res) => {
+router.get("/jobs/syncKycIn10Days", async (req, res) => {
   try {
     await kycService.syncKycIn10Days();
 
