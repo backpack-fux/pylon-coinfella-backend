@@ -25,7 +25,6 @@ const bootstrap = async () => {
   initAuth(app);
   initRoutes(app);
   await initGraphql(app);
-
   return app;
 };
 
