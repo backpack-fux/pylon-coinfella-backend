@@ -1,6 +1,5 @@
 // Dependencies
 import * as express from "express";
-
 import job from "./job";
 import user from "./user";
 import partner from "./v2/partner";
