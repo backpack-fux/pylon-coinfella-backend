@@ -16,13 +16,7 @@ const bootstrap = async () => {
   await sequelize.authenticate();
 
   app.get("/", (_req: Request, res: Response) => {
-    return res.send("Coinfella api" + process.env.NODE_ENV);
-  });
-
-  app.post("/", (_req: Request, res: Response) => {
-    return res.status(201).json({
-      message: "Created your account successfully.",
-    });
+    return res.send("Coinfella api 1.0");
   });
 
   app.use(cors());
