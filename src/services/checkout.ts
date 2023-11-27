@@ -227,7 +227,7 @@ export class CheckoutService {
           message: `Charged ${checkout.totalChargeAmountMoney.toUnit()}`,
           date: new Date(),
         });
-        checkout.sendReceipt();
+        await checkout.sendReceipt();
       } else {
         await this.markAsCheckout(checkout, PaidStatus.Processing);
         await this.processTransferAsset(checkout);
