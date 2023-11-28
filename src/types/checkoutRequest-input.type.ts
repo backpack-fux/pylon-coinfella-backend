@@ -12,7 +12,7 @@ export class CheckoutRequestInputType {
   email!: string;
 
   @IsString()
-  @Field()
+  @Field({ nullable: true })
   phoneNumber: string;
 
   @IsNumber()
