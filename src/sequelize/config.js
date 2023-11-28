@@ -10,6 +10,13 @@ const config = {
   charset: 'utf8',
   collate: 'utf8_general_ci',
   dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    decimalNumbers: true,
+  },
   pool: {
     max: 100,
     min: 0,
