@@ -11,6 +11,7 @@ import { UserService } from "../services/userService";
 import { Config } from "../config";
 import { UserStatus } from "../types/userStatus.type";
 import { TosStatus } from "../types/tosStatus.type";
+import { Partner } from "../models/Partner";
 
 const bridgeService = BridgeService.getInstance();
 
@@ -34,6 +35,8 @@ const syncUser = async (user: User) => {
     requirementsDue: res.requirements_due,
     futureRequirementsDue: res.future_requirements_due,
   });
+
+  await user.sendWebhook("update");
 };
 
 @Resolver()
@@ -98,6 +101,16 @@ export class UserResolver {
       );
     }
 
+    if (data.partnerId) {
+      const partner = await Partner.findByPk(data.partnerId);
+
+      if (!partner) {
+        throw new Error(
+          `Not found partner with provided ID: ${data.partnerId}`
+        );
+      }
+    }
+
     const idempotenceId = uuidv4();
 
     const res = await bridgeService.createCustomer(
@@ -122,6 +135,9 @@ export class UserResolver {
       idempotenceId
     );
 
+    console.log("-----------------=================");
+    console.log(JSON.stringify(res));
+
     const user = await User.create({
       id: res.id,
       status: Config.isProduction ? res.status : "pending",
@@ -143,7 +159,11 @@ export class UserResolver {
       futureRequirementsDue: res.future_requirements_due,
       signedAgreementId: data.signedAgreementId,
       idempotenceId,
+      externalUserId: data.externalUserId,
+      partnerId: data.partnerId,
     });
+
+    await user.sendWebhook("create");
 
     const token = user.password
       ? UserService.generateJWTToken({

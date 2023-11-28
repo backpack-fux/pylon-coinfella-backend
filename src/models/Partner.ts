@@ -176,7 +176,8 @@ export class Partner extends Model<Partner> {
 
   async sendWebhook(
     id: string,
-    type: "order" | "account",
+    type: "order" | "account" | "user",
+    action: "create" | "update",
     data: OrderPayload | AccountPayload
   ) {
     if (!this?.webhook) {
@@ -187,6 +188,7 @@ export class Partner extends Model<Partner> {
       await axios.post(this.webhook, {
         id,
         type,
+        action,
         accountId: this.id,
         data,
       });

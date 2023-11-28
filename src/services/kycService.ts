@@ -203,6 +203,8 @@ export class KycService {
       return;
     }
 
+    await user.sendWebhook("update");
+
     await this.notificationService.publishUserStatus({
       userId: user.id,
       status: user.state,
@@ -254,6 +256,8 @@ export class KycService {
       return;
     }
 
+    await user.sendWebhook("update");
+
     await this.notificationService.publishUserStatus({
       userId: user.id,
       status: user.state,
@@ -298,7 +302,7 @@ export class KycService {
       return;
     }
 
-    await partner.sendWebhook(partner.id, "account", {
+    await partner.sendWebhook(partner.id, "account", "update", {
       id: partner.id,
       firstName: partner.firstName,
       lastName: partner.lastName,
@@ -353,7 +357,7 @@ export class KycService {
       return;
     }
 
-    await partner.sendWebhook(partner.id, "account", {
+    await partner.sendWebhook(partner.id, "account", "update", {
       id: partner.id,
       firstName: partner.firstName,
       lastName: partner.lastName,

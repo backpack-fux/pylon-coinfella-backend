@@ -38,10 +38,9 @@ export class CheckoutService {
   ) {}
 
   async process(data: CheckoutInputType, user?: User) {
+    let checkoutRequest: CheckoutRequest;
     if (data.checkoutRequestId) {
-      const checkoutRequest = await CheckoutRequest.findByPk(
-        data.checkoutRequestId
-      );
+      checkoutRequest = await CheckoutRequest.findByPk(data.checkoutRequestId);
 
       if (!checkoutRequest) {
         throw new Error("Can't find checkout request");
@@ -86,6 +85,43 @@ export class CheckoutService {
       feeType: (data.feeType || Config.defaultFee.feeType) as TipType,
     });
 
+    const partner = await checkoutRequest?.getPartner();
+
+    if (partner) {
+      await partner.sendWebhook(
+        checkoutRequest.partnerOrderId,
+        "order",
+        "create",
+        {
+          id: checkoutRequest.id,
+          walletAddress: checkoutRequest.walletAddress,
+          email: checkoutRequest.email,
+          phoneNumber: checkoutRequest.phoneNumber,
+          status: checkoutRequest.status,
+          partnerOrderId: checkoutRequest.partnerOrderId,
+          feeAmount: checkout.feeAmountMoney.toUnit(),
+          tipAmount: checkout.tipAmountMoney.toUnit(),
+          chargeAmount: checkout.totalChargeAmountMoney.toUnit(),
+          customer: {
+            id: user?.id,
+            firstName: user?.firstName || checkout.firstName,
+            lastName: user?.lastName || checkout.lastName,
+            email: user?.email || checkout.email,
+            phoneNumber: user?.phoneNumber || checkout.phoneNumber,
+            ssn: user?.ssn,
+            dob: user?.dob,
+            status: user?.status,
+            streetAddress: user?.streetAddress || checkout.streetAddress,
+            streetAddress2: user?.streetAddress2 || checkout.streetAddress2,
+            city: user?.city || checkout.city,
+            postalCode: user?.postalCode || checkout.postalCode,
+            state: user?.state || checkout.state,
+            country: user?.country || checkout.country,
+          },
+        }
+      );
+    }
+
     return checkout;
   }
 
@@ -109,40 +145,45 @@ export class CheckoutService {
     const assetTransfer = await checkout.getAssetTransfer();
     const user = await checkout.getUser();
 
-    await partner.sendWebhook(checkoutRequest.partnerOrderId, "order", {
-      id: checkoutRequest.id,
-      walletAddress: checkoutRequest.walletAddress,
-      email: checkoutRequest.email,
-      phoneNumber: checkoutRequest.phoneNumber,
-      status: checkoutRequest.status,
-      partnerOrderId: checkoutRequest.partnerOrderId,
-      transactionHash: assetTransfer?.transactionHash,
-      feeAmount: checkout.feeAmountMoney.toUnit(),
-      tipAmount: checkout.tipAmountMoney.toUnit(),
-      chargeAmount: checkout.totalChargeAmountMoney.toUnit(),
-      unitAmount: assetTransfer?.amount,
-      chargeId: charge?.id,
-      chargeCode: charge?.code,
-      chargeMsg: charge?.message,
-      chargeStatus: charge?.status,
-      last4: charge?.last4,
-      customer: {
-        id: user?.id,
-        firstName: user?.firstName || checkout.firstName,
-        lastName: user?.lastName || checkout.lastName,
-        email: user?.email || checkout.email,
-        phoneNumber: user?.phoneNumber || checkout.phoneNumber,
-        ssn: user?.ssn,
-        dob: user?.dob,
-        status: user?.status,
-        streetAddress: user?.streetAddress || checkout.streetAddress,
-        streetAddress2: user?.streetAddress2 || checkout.streetAddress2,
-        city: user?.city || checkout.city,
-        postalCode: user?.postalCode || checkout.postalCode,
-        state: user?.state || checkout.state,
-        country: user?.country || checkout.country,
-      },
-    });
+    await partner.sendWebhook(
+      checkoutRequest.partnerOrderId,
+      "order",
+      "update",
+      {
+        id: checkoutRequest.id,
+        walletAddress: checkoutRequest.walletAddress,
+        email: checkoutRequest.email,
+        phoneNumber: checkoutRequest.phoneNumber,
+        status: checkoutRequest.status,
+        partnerOrderId: checkoutRequest.partnerOrderId,
+        transactionHash: assetTransfer?.transactionHash,
+        feeAmount: checkout.feeAmountMoney.toUnit(),
+        tipAmount: checkout.tipAmountMoney.toUnit(),
+        chargeAmount: checkout.totalChargeAmountMoney.toUnit(),
+        unitAmount: assetTransfer?.amount,
+        chargeId: charge?.id,
+        chargeCode: charge?.code,
+        chargeMsg: charge?.message,
+        chargeStatus: charge?.status,
+        last4: charge?.last4,
+        customer: {
+          id: user?.id,
+          firstName: user?.firstName || checkout.firstName,
+          lastName: user?.lastName || checkout.lastName,
+          email: user?.email || checkout.email,
+          phoneNumber: user?.phoneNumber || checkout.phoneNumber,
+          ssn: user?.ssn,
+          dob: user?.dob,
+          status: user?.status,
+          streetAddress: user?.streetAddress || checkout.streetAddress,
+          streetAddress2: user?.streetAddress2 || checkout.streetAddress2,
+          city: user?.city || checkout.city,
+          postalCode: user?.postalCode || checkout.postalCode,
+          state: user?.state || checkout.state,
+          country: user?.country || checkout.country,
+        },
+      }
+    );
   }
 
   private async processCharge(checkout: Checkout) {
