@@ -51,7 +51,10 @@ export class CheckoutService {
         throw new Error("Mismatch wallet address");
       }
 
-      if (checkoutRequest.phoneNumber !== data.phoneNumber) {
+      if (
+        checkoutRequest.phoneNumber &&
+        checkoutRequest.phoneNumber !== data.phoneNumber
+      ) {
         throw new Error("Mismatch phone number");
       }
 

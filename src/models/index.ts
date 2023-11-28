@@ -5,10 +5,21 @@ require("dotenv").config();
 
 const sequelizeConfig: SequelizeOptions = require("../sequelize/config");
 import { IDbModels } from "./models";
+import { Config } from "../config";
 
 const sequelize = new Sequelize({
   ...sequelizeConfig,
   dialectModule: pg,
+  dialectOptions:
+    Config.isProduction || Config.isStaging
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+          decimalNumbers: true,
+        }
+      : undefined,
 });
 
 type ISequelize = IDbModels & { sequelize: Sequelize };

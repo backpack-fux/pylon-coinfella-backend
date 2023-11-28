@@ -65,7 +65,8 @@ export class CheckoutRequest extends Model<CheckoutRequest> {
   @Column(DataType.STRING(100))
   email!: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
+  @Default(null)
   @Column(DataType.STRING(100))
   phoneNumber!: string;
 

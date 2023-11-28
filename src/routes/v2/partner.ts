@@ -321,11 +321,13 @@ router.post(
     );
 
     try {
-      await check("phoneNumber", "Phone number is required")
-        .notEmpty()
-        .run(req);
       await check("phoneNumber", "Phone number is invalid")
+        .optional()
         .isMobilePhone("en-US")
+        .run(req);
+      await check("email", "Email address is invalid")
+        .optional()
+        .isEmail()
         .run(req);
       await check("amount", "Amount is required").notEmpty().run(req);
       await check("amount", "Amount should numeric").isNumeric().run(req);
