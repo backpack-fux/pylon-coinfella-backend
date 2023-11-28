@@ -10,7 +10,7 @@ const config = {
   charset: 'utf8',
   collate: 'utf8_general_ci',
   dialect: 'postgres',
-  dialectOptions: {
+  dialectOptions: process.env.NODE_ENV === 'development' ? undefined : {
     ssl: {
       require: true,
       rejectUnauthorized: false,
