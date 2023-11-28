@@ -10,16 +10,13 @@ import { Config } from "../config";
 const sequelize = new Sequelize({
   ...sequelizeConfig,
   dialectModule: pg,
-  dialectOptions:
-    Config.isProduction || Config.isStaging
-      ? {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-          decimalNumbers: true,
-        }
-      : undefined,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    decimalNumbers: true,
+  },
 });
 
 type ISequelize = IDbModels & { sequelize: Sequelize };
