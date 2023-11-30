@@ -47,6 +47,18 @@ export class CheckoutService {
         throw new Error("Can't find checkout request");
       }
 
+      if (checkoutRequest.status === PaidStatus.Paid) {
+        throw new Error("Already paid");
+      }
+
+      if (checkoutRequest.status === PaidStatus.Processing) {
+        throw new Error("Already in progress");
+      }
+
+      if (checkoutRequest.status === PaidStatus.Postponed) {
+        throw new Error("Request postponed, please wait");
+      }
+
       if (checkoutRequest.walletAddress !== data.walletAddress) {
         throw new Error("Mismatch wallet address");
       }

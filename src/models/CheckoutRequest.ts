@@ -11,6 +11,8 @@ import {
   HasOne,
   ForeignKey,
   BelongsTo,
+  Scopes,
+  HasMany,
 } from "sequelize-typescript";
 import { PaidStatus } from "../types/paidStatus.type";
 import { log } from "../utils";
@@ -20,6 +22,9 @@ import { Checkout } from "./Checkout";
 import { Partner } from "./Partner";
 import { TipType } from "../types/tip.type";
 import { FeeMethod } from "../types/feeMethod.enum";
+import { Charge } from "./Charge";
+import { AssetTransfer } from "./AssetTransfer";
+import { User } from "./User";
 
 @Table({
   tableName: "checkoutRequests",
@@ -28,6 +33,28 @@ import { FeeMethod } from "../types/feeMethod.enum";
     plural: "checkoutRequests",
   },
 })
+@Scopes(() => ({
+  checkout: {
+    include: [
+      {
+        model: Checkout,
+        limit: 1,
+        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: Charge,
+          },
+          {
+            model: AssetTransfer,
+          },
+          {
+            model: User,
+          },
+        ],
+      },
+    ],
+  },
+}))
 export class CheckoutRequest extends Model<CheckoutRequest> {
   @PrimaryKey
   @AllowNull(false)
@@ -140,13 +167,20 @@ export class CheckoutRequest extends Model<CheckoutRequest> {
   @Column(DataType.DATE)
   updatedAt!: Date;
 
-  @HasOne(() => Checkout)
-  checkout!: Checkout;
-  getCheckout!: () => Promise<Checkout>;
+  @HasMany(() => Checkout)
+  checkouts!: Checkout[];
 
   @BelongsTo(() => Partner)
   partner!: Partner;
   getPartner!: () => Promise<Partner>;
+
+  get checkout() {
+    if (this.checkouts?.length) {
+      return this.checkouts[0];
+    }
+
+    return undefined;
+  }
 
   static async generateCheckoutRequest(data: Partial<CheckoutRequest>) {
     return CheckoutRequest.create({

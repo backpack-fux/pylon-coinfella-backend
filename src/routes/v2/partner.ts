@@ -434,24 +434,8 @@ router.get(
         checkoutRequestCriteria.status = data.status as string;
       }
 
-      const checkoutRequests = await CheckoutRequest.findAndCountAll({
+      const checkoutRequests = await CheckoutRequest.scope('checkout').findAndCountAll({
         where: checkoutRequestCriteria,
-        include: [
-          {
-            model: Checkout,
-            include: [
-              {
-                model: Charge,
-              },
-              {
-                model: AssetTransfer,
-              },
-              {
-                model: User,
-              },
-            ],
-          },
-        ],
         distinct: true,
         offset,
         limit,
