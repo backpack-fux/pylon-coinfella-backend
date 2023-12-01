@@ -11,12 +11,13 @@ import { UserService } from "../services/userService";
 import { Config } from "../config";
 import { UserStatus } from "../types/userStatus.type";
 import { TosStatus } from "../types/tosStatus.type";
+import { Partner } from "../models/Partner";
 
 const bridgeService = BridgeService.getInstance();
 
 const syncUser = async (user: User) => {
   const res = await bridgeService.getCustomer(user.id);
-
+  const userStatus = user.status;
   const kycLink = await KycLink.findOne({
     where: {
       userId: user.id,
@@ -34,6 +35,12 @@ const syncUser = async (user: User) => {
     requirementsDue: res.requirements_due,
     futureRequirementsDue: res.future_requirements_due,
   });
+
+  if (userStatus === res.status) {
+    return;
+  }
+
+  await user.sendWebhook("update");
 };
 
 @Resolver()
@@ -98,6 +105,16 @@ export class UserResolver {
       );
     }
 
+    if (data.partnerId) {
+      const partner = await Partner.findByPk(data.partnerId);
+
+      if (!partner) {
+        throw new Error(
+          `Not found partner with provided ID: ${data.partnerId}`
+        );
+      }
+    }
+
     const idempotenceId = uuidv4();
 
     const res = await bridgeService.createCustomer(
@@ -115,8 +132,8 @@ export class UserResolver {
           postal_code: data.postalCode,
           country: data.country,
         },
-        dob: data.dob,
-        ssn: data.ssn,
+        birth_date: data.dob,
+        tax_identification_number: data.ssn,
         signed_agreement_id: data.signedAgreementId,
       },
       idempotenceId
@@ -143,7 +160,11 @@ export class UserResolver {
       futureRequirementsDue: res.future_requirements_due,
       signedAgreementId: data.signedAgreementId,
       idempotenceId,
+      externalUserId: data.externalUserId,
+      partnerId: data.partnerId,
     });
+
+    await user.sendWebhook("create");
 
     const token = user.password
       ? UserService.generateJWTToken({
@@ -193,10 +214,12 @@ export class UserResolver {
       throw new Error("Not found user");
     }
 
-    const link = await bridgeService.createKycUrl(
-      user.id,
-      `${Config.frontendUri}/kyc-success?userId=${userId}`
-    );
+    const link = Config.isProduction
+      ? await bridgeService.createKycUrl(
+          user.id,
+          `${Config.frontendUri}/kyc-success?userId=${userId}`
+        )
+      : `${Config.frontendUri}/kyc-success?userId=${userId}`;
 
     await KycLink.create({
       userId: user.id,
@@ -210,12 +233,6 @@ export class UserResolver {
     });
 
     return link;
-
-    // if (Config.isProduction) {
-
-    // } else {
-    //   return `${Config.frontendUri}/kyc-success?userId=${userId}`;
-    // }
   }
 
   @Authorized()
@@ -229,6 +246,7 @@ export class UserResolver {
         requirementsDue: [],
         futureRequirementsDue: [],
       });
+      await user.sendWebhook("update");
     } else {
       await syncUser(userRecord);
     }

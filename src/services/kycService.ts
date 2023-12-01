@@ -9,6 +9,7 @@ import { Partner } from "../models/Partner";
 import { NotificationService } from "./notificationService";
 import { UserService } from "./userService";
 import { log } from "../utils";
+import { Config } from "../config";
 
 const notificationService = NotificationService.getInstance();
 const bridgeServiceInstance = BridgeService.getInstance();
@@ -179,29 +180,50 @@ export class KycService {
     }
 
     const userStatus = user.status;
-    const res = await this.bridgeService.getCustomer(kycLink.customerId);
 
-    await user.sequelize.transaction(async (t) => {
-      await user.update(
-        {
-          status: res.status,
-          requirementsDue: res.requirements_due,
-          futureRequirementsDue: res.future_requirements_due,
-        },
-        { transaction: t }
-      );
+    if (Config.isProduction) {
+      const res = await this.bridgeService.getCustomer(kycLink.customerId);
 
-      await kycLink.update(
-        {
-          kycStatus: res.status,
-        },
-        { transaction: t }
-      );
-    });
+      await user.sequelize.transaction(async (t) => {
+        await user.update(
+          {
+            status: res.status,
+            requirementsDue: res.requirements_due,
+            futureRequirementsDue: res.future_requirements_due,
+          },
+          { transaction: t }
+        );
+
+        await kycLink.update(
+          {
+            kycStatus: res.status,
+          },
+          { transaction: t }
+        );
+      });
+    } else {
+      await user.sequelize.transaction(async (t) => {
+        await user.update(
+          {
+            status: UserStatus.Active,
+          },
+          { transaction: t }
+        );
+
+        await kycLink.update(
+          {
+            kycStatus: UserStatus.Active,
+          },
+          { transaction: t }
+        );
+      });
+    }
 
     if (userStatus === user.status) {
       return;
     }
+
+    await user.sendWebhook("update");
 
     await this.notificationService.publishUserStatus({
       userId: user.id,
@@ -254,6 +276,8 @@ export class KycService {
       return;
     }
 
+    await user.sendWebhook("update");
+
     await this.notificationService.publishUserStatus({
       userId: user.id,
       status: user.state,
@@ -298,7 +322,7 @@ export class KycService {
       return;
     }
 
-    await partner.sendWebhook(partner.id, "account", {
+    await partner.sendWebhook(partner.id, "account", "update", {
       id: partner.id,
       firstName: partner.firstName,
       lastName: partner.lastName,
@@ -353,7 +377,7 @@ export class KycService {
       return;
     }
 
-    await partner.sendWebhook(partner.id, "account", {
+    await partner.sendWebhook(partner.id, "account", "update", {
       id: partner.id,
       firstName: partner.firstName,
       lastName: partner.lastName,

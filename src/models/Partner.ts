@@ -176,9 +176,18 @@ export class Partner extends Model<Partner> {
 
   async sendWebhook(
     id: string,
-    type: "order" | "account",
+    type: "order" | "account" | "user",
+    action: "create" | "update",
     data: OrderPayload | AccountPayload
   ) {
+    console.log("send webhook ===============================");
+    console.log({
+      id,
+      type,
+      action,
+      accountId: this.id,
+      data,
+    });
     if (!this?.webhook) {
       return;
     }
@@ -187,6 +196,7 @@ export class Partner extends Model<Partner> {
       await axios.post(this.webhook, {
         id,
         type,
+        action,
         accountId: this.id,
         data,
       });

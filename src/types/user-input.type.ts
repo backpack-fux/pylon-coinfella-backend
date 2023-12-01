@@ -64,4 +64,12 @@ export class UserInputType {
   @IsString()
   @Field()
   signedAgreementId: string;
+
+  @IsString()
+  @Field({ nullable: true })
+  externalUserId: string;
+
+  @IsString()
+  @Field({ nullable: true })
+  partnerId: string;
 }

@@ -578,7 +578,7 @@ router.post(
         });
       }
 
-      await partnerRecord.sendWebhook(partner.id, "account", {
+      await partnerRecord.sendWebhook(partner.id, "account", "update", {
         id: partnerRecord.id,
         firstName: partnerRecord.firstName,
         lastName: partnerRecord.lastName,

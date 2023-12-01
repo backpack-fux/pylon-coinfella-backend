@@ -45,6 +45,9 @@ router.patch("/v2/users/:id", authMiddlewareForPartner, async (req, res) => {
       ssn: data.ssn,
       dob: data.dob,
     });
+
+    await user.sendWebhook("update");
+
     res.status(200).send(user.toJSON());
   } catch (error) {
     log.info(

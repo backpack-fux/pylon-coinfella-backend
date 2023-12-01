@@ -9,9 +9,14 @@ import {
   IsEmail,
   BeforeUpdate,
   BeforeCreate,
+  ForeignKey,
+  BelongsTo,
+  AfterSave,
+  AfterUpdate,
 } from "sequelize-typescript";
 import { UserService } from "../services/userService";
 import { UserStatus } from "../types/userStatus.type";
+import { Partner } from "./Partner";
 
 @Table({
   tableName: "users",
@@ -25,6 +30,16 @@ export class User extends Model<User> {
   @AllowNull(false)
   @Column(DataType.UUID)
   id!: string;
+
+  @AllowNull(true)
+  @Default(null)
+  @Column(DataType.STRING(100))
+  externalUserId!: string;
+
+  @AllowNull(true)
+  @Column(DataType.UUID)
+  @ForeignKey(() => Partner)
+  partnerId!: string;
 
   @AllowNull(false)
   @Default(UserStatus.Pending)
@@ -114,6 +129,9 @@ export class User extends Model<User> {
   updatedAt!: Date;
 
   //#region Associations
+  @BelongsTo(() => Partner)
+  partner!: Partner;
+  getPartner!: () => Promise<Partner>;
   //#endregion
 
   get fullName() {
@@ -165,5 +183,30 @@ export class User extends Model<User> {
     } catch (err: any) {
       cb(err, null);
     }
+  }
+
+  async sendWebhook(action: "create" | "update") {
+    const partner = await this.getPartner();
+
+    if (!partner) {
+      return;
+    }
+
+    return partner.sendWebhook(this.externalUserId, "user", action, {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      ssn: this.ssn,
+      dob: this.dob,
+      status: this.status,
+      streetAddress: this.streetAddress,
+      streetAddress2: this.streetAddress2,
+      city: this.city,
+      postalCode: this.postalCode,
+      state: this.state,
+      country: this.country,
+    });
   }
 }
