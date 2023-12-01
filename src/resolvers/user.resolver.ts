@@ -17,7 +17,7 @@ const bridgeService = BridgeService.getInstance();
 
 const syncUser = async (user: User) => {
   const res = await bridgeService.getCustomer(user.id);
-
+  const userStatus = user.status;
   const kycLink = await KycLink.findOne({
     where: {
       userId: user.id,
@@ -35,6 +35,10 @@ const syncUser = async (user: User) => {
     requirementsDue: res.requirements_due,
     futureRequirementsDue: res.future_requirements_due,
   });
+
+  if (userStatus === res.status) {
+    return;
+  }
 
   await user.sendWebhook("update");
 };
@@ -128,15 +132,12 @@ export class UserResolver {
           postal_code: data.postalCode,
           country: data.country,
         },
-        dob: data.dob,
-        ssn: data.ssn,
+        birth_date: data.dob,
+        tax_identification_number: data.ssn,
         signed_agreement_id: data.signedAgreementId,
       },
       idempotenceId
     );
-
-    console.log("-----------------=================");
-    console.log(JSON.stringify(res));
 
     const user = await User.create({
       id: res.id,
@@ -213,10 +214,12 @@ export class UserResolver {
       throw new Error("Not found user");
     }
 
-    const link = await bridgeService.createKycUrl(
-      user.id,
-      `${Config.frontendUri}/kyc-success?userId=${userId}`
-    );
+    const link = Config.isProduction
+      ? await bridgeService.createKycUrl(
+          user.id,
+          `${Config.frontendUri}/kyc-success?userId=${userId}`
+        )
+      : `${Config.frontendUri}/kyc-success?userId=${userId}`;
 
     await KycLink.create({
       userId: user.id,
@@ -230,12 +233,6 @@ export class UserResolver {
     });
 
     return link;
-
-    // if (Config.isProduction) {
-
-    // } else {
-    //   return `${Config.frontendUri}/kyc-success?userId=${userId}`;
-    // }
   }
 
   @Authorized()
@@ -249,6 +246,7 @@ export class UserResolver {
         requirementsDue: [],
         futureRequirementsDue: [],
       });
+      await user.sendWebhook("update");
     } else {
       await syncUser(userRecord);
     }

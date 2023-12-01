@@ -180,6 +180,14 @@ export class Partner extends Model<Partner> {
     action: "create" | "update",
     data: OrderPayload | AccountPayload
   ) {
+    console.log("send webhook ===============================");
+    console.log({
+      id,
+      type,
+      action,
+      accountId: this.id,
+      data,
+    });
     if (!this?.webhook) {
       return;
     }
