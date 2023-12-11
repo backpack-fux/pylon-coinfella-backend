@@ -434,7 +434,9 @@ router.get(
         checkoutRequestCriteria.status = data.status as string;
       }
 
-      const checkoutRequests = await CheckoutRequest.scope('checkout').findAndCountAll({
+      const checkoutRequests = await CheckoutRequest.scope(
+        "checkout"
+      ).findAndCountAll({
         where: checkoutRequestCriteria,
         distinct: true,
         offset,
@@ -536,6 +538,59 @@ router.get(
           errors: error.mapped(),
         });
       }
+
+      if (error.code) {
+        return res.status(400).send(error);
+      }
+
+      res.status(400).send({
+        message: error.message || "Error",
+      });
+    }
+  }
+);
+
+router.get(
+  "/v2/partners/orders/order_link/:partnerOrderId",
+  authMiddlewareForPartner,
+  async (req, res) => {
+    const partnerOrderId = req.params.partnerOrderId;
+    const partner = req.partner;
+
+    log.info(
+      {
+        func: "/v2/partners/orders/order_link/:partnerOrderId",
+        partnerOrderId,
+        partnerId: partner?.id,
+      },
+      "Start get partner order link"
+    );
+
+    try {
+      const checkoutRequest = await CheckoutRequest.findOne({
+        where: {
+          partnerId: partner.id,
+          partnerOrderId,
+        },
+      });
+
+      if (!checkoutRequest) {
+        return res.status(200).json({});
+      }
+
+      res.status(200).json({
+        uri: `${Config.frontendUri}/${checkoutRequest.id}`,
+      });
+    } catch (error) {
+      log.warn(
+        {
+          func: "/v2/partners/orders/order_link/:partnerOrderId",
+          partnerOrderId,
+          partnerId: partner?.id,
+          err: error,
+        },
+        "Failed get partner orders"
+      );
 
       if (error.code) {
         return res.status(400).send(error);
