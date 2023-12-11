@@ -20,7 +20,7 @@ import { Checkout } from "../../models/Checkout";
 import { Charge } from "../../models/Charge";
 import { AssetTransfer } from "../../models/AssetTransfer";
 import { User } from "../../models/User";
-import { normalizeOrder } from "../../utils/convert";
+import { normalizeOrder, normalizeStatus } from "../../utils/convert";
 import { TosStatus } from "../../types/tosStatus.type";
 
 const router = express.Router();
@@ -85,7 +85,7 @@ router.post("/v2/partners", async (req, res) => {
           type: response.type,
           kycLink: response.kyc_link,
           tosLink: response.tos_link,
-          kycStatus: response.kyc_status,
+          kycStatus: normalizeStatus(response.kyc_status),
           tosStatus: response.tos_status,
           associatedObjectType: "kycLink",
           associatedUserType: "partner",

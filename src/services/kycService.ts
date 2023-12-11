@@ -10,6 +10,7 @@ import { NotificationService } from "./notificationService";
 import { UserService } from "./userService";
 import { log } from "../utils";
 import { Config } from "../config";
+import { normalizeStatus } from "../utils/convert";
 
 const notificationService = NotificationService.getInstance();
 const bridgeServiceInstance = BridgeService.getInstance();
@@ -187,7 +188,7 @@ export class KycService {
       await user.sequelize.transaction(async (t) => {
         await user.update(
           {
-            status: res.status,
+            status: normalizeStatus(res.status),
             requirementsDue: res.requirements_due,
             futureRequirementsDue: res.future_requirements_due,
           },
@@ -196,7 +197,7 @@ export class KycService {
 
         await kycLink.update(
           {
-            kycStatus: res.status,
+            kycStatus: normalizeStatus(res.status),
           },
           { transaction: t }
         );
@@ -227,7 +228,7 @@ export class KycService {
 
     await this.notificationService.publishUserStatus({
       userId: user.id,
-      status: user.state,
+      status: user.status,
       token: UserService.generateJWTToken({
         id: user.id,
         email: user.email,
@@ -250,7 +251,7 @@ export class KycService {
 
       await kycLink.update(
         {
-          kycStatus: kycLinkRes.kyc_status,
+          kycStatus: normalizeStatus(kycLinkRes.kyc_status),
           tosStatus: kycLinkRes.tos_status,
         },
         { transaction: t }
@@ -263,7 +264,7 @@ export class KycService {
 
         await user.update(
           {
-            status: customer.status,
+            status: normalizeStatus(customer.status),
             requirementsDue: customer.requirements_due,
             futureRequirementsDue: customer.future_requirements_due,
           },
@@ -280,7 +281,7 @@ export class KycService {
 
     await this.notificationService.publishUserStatus({
       userId: user.id,
-      status: user.state,
+      status: user.status,
       token: UserService.generateJWTToken({
         id: user.id,
         email: user.email,
@@ -305,14 +306,14 @@ export class KycService {
     await partner.sequelize.transaction(async (t) => {
       await partner.update(
         {
-          status: res.status,
+          status: normalizeStatus(res.status),
         },
         { transaction: t }
       );
 
       await kycLink.update(
         {
-          kycStatus: res.status,
+          kycStatus: normalizeStatus(res.status),
         },
         { transaction: t }
       );
@@ -353,7 +354,7 @@ export class KycService {
 
       await kycLink.update(
         {
-          kycStatus: kycLinkRes.kyc_status,
+          kycStatus: normalizeStatus(kycLinkRes.kyc_status),
           tosStatus: kycLinkRes.tos_status,
         },
         { transaction: t }
@@ -366,7 +367,7 @@ export class KycService {
 
         await partner.update(
           {
-            status: customer.status,
+            status: normalizeStatus(customer.status),
           },
           { transaction: t }
         );

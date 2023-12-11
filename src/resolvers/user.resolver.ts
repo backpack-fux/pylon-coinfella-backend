@@ -12,6 +12,7 @@ import { Config } from "../config";
 import { UserStatus } from "../types/userStatus.type";
 import { TosStatus } from "../types/tosStatus.type";
 import { Partner } from "../models/Partner";
+import { normalizeStatus } from "../utils/convert";
 
 const bridgeService = BridgeService.getInstance();
 
@@ -26,12 +27,12 @@ const syncUser = async (user: User) => {
 
   if (kycLink) {
     await kycLink.update({
-      kycStatus: res.status,
+      kycStatus: normalizeStatus(res.status),
     });
   }
 
   await user.update({
-    status: res.status,
+    status: normalizeStatus(res.status),
     requirementsDue: res.requirements_due,
     futureRequirementsDue: res.future_requirements_due,
   });
@@ -141,7 +142,9 @@ export class UserResolver {
 
     const user = await User.create({
       id: res.id,
-      status: Config.isProduction ? res.status : "pending",
+      status: Config.isProduction
+        ? normalizeStatus(res.status)
+        : UserStatus.Pending,
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,

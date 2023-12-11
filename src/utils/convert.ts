@@ -2,6 +2,7 @@ import { chargeMessages } from "../errors/chargeErrors";
 import { Charge } from "../models/Charge";
 import { CheckoutRequest } from "../models/CheckoutRequest";
 import { OrderPayload } from "../models/Partner";
+import { UserStatus } from "../types/userStatus.type";
 import { newDinero } from "./currency";
 
 export const convertToCharge = (charge: any): Charge => {
@@ -78,4 +79,21 @@ export const normalizeOrder = (
         checkoutRequest.checkout?.country,
     },
   };
+};
+
+export const normalizeStatus = (status: string) => {
+  switch (status) {
+    case "active":
+      return UserStatus.Active;
+    case "approved":
+      return UserStatus.Active;
+    case "rejected":
+      return UserStatus.Rejected;
+    case "manual_review":
+      return UserStatus.ManualReview;
+    case "pending":
+      return UserStatus.Pending;
+    default:
+      return UserStatus.Pending;
+  }
 };
