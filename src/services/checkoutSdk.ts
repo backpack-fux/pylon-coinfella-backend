@@ -37,6 +37,7 @@ export class CheckoutSdkService {
         recipient: {
           first_name: checkout.firstName,
           last_name: checkout.lastName,
+          account_number: checkout.phoneNumber,
           address: {
             address_line1: checkout.streetAddress,
             address_line2: checkout.streetAddress2,
