@@ -253,6 +253,27 @@ router.patch("/v2/partners", authMiddlewareForPartner, async (req, res) => {
   }
 });
 
+router.get("/v2/partners", authMiddlewareForPartner, async (req, res) => {
+  const partner = req.partner;
+  res.status(200).send({
+    id: partner.id,
+    status: partner.status,
+    companyName: partner.companyName,
+    displayName: partner.displayName,
+    firstName: partner.firstName,
+    lastName: partner.lastName,
+    email: partner.email,
+    phoneNumber: partner.phoneNumber,
+    streetAddress: partner.streetAddress,
+    streetAddress2: partner.streetAddress2,
+    city: partner.city,
+    state: partner.state,
+    postalCode: partner.postalCode,
+    country: partner.country,
+    webhook: partner.webhook,
+  });
+});
+
 router.patch(
   "/v2/partners/webhook",
   authMiddlewareForPartner,
