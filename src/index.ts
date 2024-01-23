@@ -14,7 +14,6 @@ import {
 import { log } from "./utils";
 import { initRoutes } from "./routes";
 import { initGraphql } from "./graphql";
-import { createServer } from "http";
 import { initAuth } from "./auth";
 import { resError } from "./middleware/resError";
 import { exec } from "child_process";
@@ -65,7 +64,6 @@ async function bootstrap() {
   log.info("Sequelize Database Connected");
 
   const app = express();
-  const httpServer = createServer(app);
   app.use(cors());
   app.use(resError);
   app.use(bodyParser.json());
@@ -75,7 +73,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 4000;
 
-  httpServer.listen(port, () => {
+  app.listen(port, () => {
     log.info(`Server running at http://localhost:${port}`);
   });
 }
