@@ -27,7 +27,7 @@ export class CheckoutSdkService {
             address_line2: checkout.streetAddress2,
             city: checkout.city,
             state: checkout.state,
-            postalCode: checkout.postalCode,
+            zip: checkout.postalCode,
             country: "US",
           },
         },
@@ -37,17 +37,18 @@ export class CheckoutSdkService {
         recipient: {
           first_name: checkout.firstName,
           last_name: checkout.lastName,
-          account_number: checkout.phoneNumber,
+          account_name: checkout.phoneNumber,
           address: {
             address_line1: checkout.streetAddress,
             address_line2: checkout.streetAddress2,
             city: checkout.city,
             state: checkout.state,
-            postalCode: checkout.postalCode,
+            zip: checkout.postalCode,
             country: "US",
           },
         },
         sender: {
+          type: "individual",
           first_name: checkout.firstName,
           last_name: checkout.lastName,
           address: {
@@ -55,7 +56,7 @@ export class CheckoutSdkService {
             address_line2: checkout.streetAddress2,
             city: checkout.city,
             state: checkout.state,
-            postalCode: checkout.postalCode,
+            zip: checkout.postalCode,
             country: "US",
           },
         },
