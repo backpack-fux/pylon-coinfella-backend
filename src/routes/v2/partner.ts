@@ -365,6 +365,7 @@ router.post(
       if (!partner.isApproved) {
         throw new Error("Your account is not approved yet. please wait.");
       }
+      
       const combinedFee = Number(partner.fee) + Number(data.fee);
 
       if (combinedFee < Config.defaultFee.minFee) {
