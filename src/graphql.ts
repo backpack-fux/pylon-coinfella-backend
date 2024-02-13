@@ -5,6 +5,7 @@ import * as _ from "lodash";
 
 import { Config } from "./config";
 import { Express } from "express";
+import cors from "cors";
 import { CheckoutResolver } from "./resolvers/checkout.resolver";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import type http from "http";
@@ -39,6 +40,7 @@ export const initGraphql = async (app: Express) => {
 
   await server.start();
 
+  app.use(cors());
   app.use("/graphql", authMiddlewareForGraphql);
 
   server.applyMiddleware({ app });
