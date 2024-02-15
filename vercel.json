@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "pnpm run build && npm run sequelize db:migrate && npm run sequelize db:seed:all",
-      "use": "@vercel/node"
-    }
-  ],
   "crons": [
     {
       "path": "/jobs/processCheckoutWorker",
