@@ -4,10 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "kyc-job-local": "TS_NODE_FILES=true ts-node-dev ./src/jobs/kycJobs.ts",
-    "kyc-job-staging": "NODE_ENV=staging pm2 start dist/jobs/kycJobs.js",
-    "kyc-job": "NODE_ENV=production pm2 start dist/jobs/kycJobs.js",
-    "start-local": "TS_NODE_FILES=true ts-node-dev ./src/index.ts",
+    "dev": "TS_NODE_FILES=true ts-node-dev ./src/index.ts",
     "start": "NODE_ENV=production node dist/index.js",
     "staging": "NODE_ENV=staging pm2 start dist/index.js",
     "production": "NODE_ENV=production pm2 start dist/index.js",
@@ -15,10 +12,8 @@
     "build:schema": "gql-gen",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed:all": "sequelize-cli db:seed:all",
-    "enable-webhook": "TS_NODE_FILES=true node_modules/.bin/ts-node src/scripts/enableWebhook.ts",
     "copy-assets": "ts-node src/scripts/copyAssets",
-    "copy-modules": "ts-node src/scripts/copyModules",
-    "reload": "pm2 reload index --update-env && pm2 reload kycJobs --update-env"
+    "copy-modules": "ts-node src/scripts/copyModules"
   },
   "dependencies": {
     "@apollo/server": "^4.4.1",
@@ -65,7 +60,7 @@
   },
   "devDependencies": {
     "@types/async-lock": "^1.4.0",
-	"@types/cors": "2.8.17",
+    "@types/cors": "2.8.17",
     "@types/dinero.js": "^1.9.0",
     "@types/express": "^4.17.21",
     "@types/node": "^18.14.1",
@@ -78,5 +73,6 @@
     "type-graphql": "2.0.0-beta.3",
     "typedi": "0.8.0",
     "typescript": "4.9.5"
-  }
+  },
+  "packageManager": "pnpm@8.13.1"
 }
