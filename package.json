@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "TS_NODE_FILES=true ts-node-dev ./src/index.ts",
-    "start": "NODE_ENV=production node dist/index.js",
     "staging": "NODE_ENV=staging pm2 start dist/index.js",
+    "start": "NODE_ENV=production node dist/index.js",
     "production": "NODE_ENV=production pm2 start dist/index.js",
     "build": "npx tsc --extendedDiagnostics",
     "build:schema": "gql-gen",
@@ -68,6 +68,7 @@
     "@types/sequelize": "^4.28.20",
     "@types/umzug": "^2.3.7",
     "graphql-type-json": "^0.3.2",
+    "prettier": "3.2.5",
     "sequelize-typescript": "^2.1.6",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
@@ -75,5 +76,12 @@
     "typedi": "0.8.0",
     "typescript": "4.9.5"
   },
-  "packageManager": "pnpm@8.13.1"
+  "packageManager": "pnpm@8.13.1",
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "printWidth": 100
+  }
 }
