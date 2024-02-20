@@ -13,7 +13,10 @@ router.post("/webhook/checkout-request", authMiddlewareForWebhook, async (req, r
 
     const payload = req.body;
 
-    // Do something with the payload
+    /** 
+	  @dev Do something with the payload
+	  @todo receive checkout confirmation and process USDC transfer via processTransferAsset()
+	*/
     console.log("Webhook received:", payload);
 
     // Return a response (optional)
