@@ -1,4 +1,5 @@
 import passport from "passport";
+import crypto from "crypto";
 import { RequestHandler } from "express";
 import { User } from "../models/User";
 import * as jwt from "jsonwebtoken";
@@ -145,11 +146,24 @@ export const authMiddlewareForPartner: RequestHandler = async (req, res, next) =
 };
 
 export const authMiddlewareForWebhook: RequestHandler = async (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
-    res.status(401).json({
-      message: "Authentication is required!"
-    });
+  const { headers, body } = req;
+
+  const signature = headers["cko-signature"] as string;
+  const secretKey = process.env.CHECKOUT_WEBHOOK_SIG_KEY as string;
+
+  if (!signature || !secretKey) {
+    res.status(401).json({ message: "Invalid signature or missing secret key" });
     return;
   }
+
+  const hmac = crypto.createHmac("sha256", secretKey);
+  hmac.update(JSON.stringify(body));
+  const calculatedSignature = hmac.digest("hex");
+
+  if (signature !== calculatedSignature) {
+    res.status(401).json({ message: "Signature verification failed" });
+    return;
+  }
+
+  next();
 };

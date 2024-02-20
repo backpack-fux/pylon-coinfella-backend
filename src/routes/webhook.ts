@@ -1,9 +1,10 @@
 import * as express from "express";
 import { log } from "../utils";
+import { authMiddlewareForWebhook } from "../middleware/auth";
 
 const router = express.Router();
 
-router.post("/webhook/checkout-request", async (req, res) => {
+router.post("/webhook/checkout-request", authMiddlewareForWebhook, async (req, res) => {
   try {
     if (req.method !== "POST") {
       res.status(405).json({ error: "Method Not Allowed" });

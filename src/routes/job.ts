@@ -15,13 +15,13 @@ router.get("/jobs/processCheckoutWorker", async (req, res) => {
   try {
     const checkouts = await Checkout.findAll({
       where: {
-        status: PaidStatus.Pending,
-      },
+        status: PaidStatus.Pending
+      }
     });
 
     const result = {
       success: [],
-      failed: [],
+      failed: []
     };
 
     for (const checkout of checkouts) {
@@ -33,7 +33,7 @@ router.get("/jobs/processCheckoutWorker", async (req, res) => {
         log.warn(
           {
             func: "/jobs/processCheckoutWorker",
-            checkoutId: checkout.id,
+            checkoutId: checkout.id
           },
           "Failed process checkout"
         );
@@ -44,25 +44,25 @@ router.get("/jobs/processCheckoutWorker", async (req, res) => {
     log.info(
       {
         func: "/jobs/processCheckoutWorker",
-        result,
+        result
       },
       "Checkout Info"
     );
 
     return res.status(200).json({
-      result,
+      result
     });
   } catch (err) {
     log.warn(
       {
         func: "/jobs/processCheckoutWorker",
-        err,
+        err
       },
       "failed sync"
     );
 
     res.status(400).send({
-      message: err.message || "Error",
+      message: err.message || "Error"
     });
   }
 });
@@ -72,19 +72,19 @@ router.get("/jobs/kyc10MinutesWorker", async (req, res) => {
     await kycService.syncKycIn10Minutes();
 
     return res.status(200).json({
-      message: "synced",
+      message: "synced"
     });
   } catch (err) {
     log.warn(
       {
         func: "/jobs/kyc10MinutesWorker",
-        err,
+        err
       },
       "failed sync"
     );
 
     res.status(400).send({
-      message: err.message || "Error",
+      message: err.message || "Error"
     });
   }
 });
@@ -94,19 +94,19 @@ router.get("/jobs/syncKycInAnHour", async (req, res) => {
     await kycService.syncKycInAnHour();
 
     return res.status(200).json({
-      message: "synced",
+      message: "synced"
     });
   } catch (err) {
     log.warn(
       {
         func: "/jobs/syncKycInAnHour",
-        err,
+        err
       },
       "failed sync"
     );
 
     res.status(400).send({
-      message: err.message || "Error",
+      message: err.message || "Error"
     });
   }
 });
@@ -116,19 +116,19 @@ router.get("/jobs/syncKycIn2Days", async (req, res) => {
     await kycService.syncKycIn2Days();
 
     return res.status(200).json({
-      message: "synced",
+      message: "synced"
     });
   } catch (err) {
     log.warn(
       {
         func: "/jobs/syncKycIn2Days",
-        err,
+        err
       },
       "failed sync"
     );
 
     res.status(400).send({
-      message: err.message || "Error",
+      message: err.message || "Error"
     });
   }
 });
@@ -138,19 +138,19 @@ router.get("/jobs/syncKycIn10Days", async (req, res) => {
     await kycService.syncKycIn10Days();
 
     return res.status(200).json({
-      message: "synced",
+      message: "synced"
     });
   } catch (err) {
     log.warn(
       {
         func: "/jobs/syncKycIn10Days",
-        err,
+        err
       },
       "failed sync"
     );
 
     res.status(400).send({
-      message: err.message || "Error",
+      message: err.message || "Error"
     });
   }
 });
