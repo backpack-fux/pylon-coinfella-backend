@@ -54,20 +54,20 @@ export class CheckoutResolver {
     const res = checkoutService.process(data).then(async () => {
       console.log("Mutation: Process checkout service");
 
-      const checkouts = await Checkout.findAll({
-        where: {
-          status: PaidStatus.Pending
-        }
-      });
+    //   const checkouts = await Checkout.findAll({
+    //     where: {
+    //       status: PaidStatus.Pending
+    //     }
+    //   });
 
-      for (const checkout of checkouts) {
-        try {
-          await checkoutService.processCheckout(checkout);
-        } catch (err) {
-          console.log("error: ", err);
-          throw new Error("Failed to process checkout");
-        }
-      }
+    //   for (const checkout of checkouts) {
+    //     try {
+    //       await checkoutService.processCheckout(checkout);
+    //     } catch (err) {
+    //       console.log("error: ", err);
+    //       throw new Error("Failed to process checkout");
+    //     }
+    //   }
     });
     return res;
   }
