@@ -11,6 +11,7 @@ import { Partner } from "../../models/Partner";
 
 import { UserService } from "../../services/userService";
 import { BridgeService } from "../../services/bridgeService";
+import { DiscordService } from "../../services/discordService";
 
 import { log } from "../../utils";
 import { KycLink } from "../../models/KycLink";
@@ -25,6 +26,7 @@ import { TosStatus } from "../../types/tosStatus.type";
 
 const router = express.Router();
 const bridgeService = BridgeService.getInstance();
+const discordService = DiscordService.getInstance();
 
 router.post("/v2/partners", async (req, res) => {
   const data = req.body;
@@ -350,6 +352,7 @@ router.post(
         .optional()
         .isEmail()
         .run(req);
+      await check("fee", "Fee is invalid").isNumeric().run(req);
       await check("amount", "Amount is required").notEmpty().run(req);
       await check("amount", "Amount should numeric").isNumeric().run(req);
       await check("walletAddress", "Wallet address is required")
@@ -363,6 +366,14 @@ router.post(
 
       if (!partner.isApproved) {
         throw new Error("Your account is not approved yet. please wait.");
+      }
+      
+      const combinedFee = Number(partner.fee) + Number(data.fee);
+
+      if (combinedFee < Config.defaultFee.minFee) {
+        throw new Error(
+          `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
+        );
       }
 
       const checkoutRequest = await CheckoutRequest.generateCheckoutRequest({
@@ -378,11 +389,17 @@ router.post(
         amount: data.amount,
         walletAddress: data.walletAddress,
         partnerOrderId: data.partnerOrderId,
-        fee: partner.fee,
+        fee: combinedFee,
         feeType: partner.feeType,
         feeMethod: partner.feeMethod,
         partnerId: partner.id,
       });
+
+	  const uri = `${Config.frontendUri}/${checkoutRequest.id}`;
+      await discordService.send(
+        `${partner.companyName} created order trackingId: ${checkoutRequest.id}. payment link: ${uri}`
+      );
+
       res.status(200).json({
         id: checkoutRequest.id,
         uri: `${Config.frontendUri}/${checkoutRequest.id}`,
