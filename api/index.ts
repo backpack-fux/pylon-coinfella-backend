@@ -16,7 +16,7 @@ const bootstrap = async () => {
   await sequelize.authenticate();
 
   app.get("/", (_req: Request, res: Response) => {
-    return res.send("Coinfella api 1.0");
+    return res.send({ "Coinfella API": 1.0 });
   });
 
   app.use(cors());
