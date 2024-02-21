@@ -11,6 +11,7 @@ import { Partner } from "../../models/Partner";
 
 import { UserService } from "../../services/userService";
 import { BridgeService } from "../../services/bridgeService";
+import { DiscordService } from "../../services/discordService";
 
 import { log } from "../../utils";
 import { KycLink } from "../../models/KycLink";
@@ -25,6 +26,7 @@ import { TosStatus } from "../../types/tosStatus.type";
 
 const router = express.Router();
 const bridgeService = BridgeService.getInstance();
+const discordService = DiscordService.getInstance();
 
 router.post("/v2/partners", async (req, res) => {
   const data = req.body;
@@ -392,6 +394,12 @@ router.post(
         feeMethod: partner.feeMethod,
         partnerId: partner.id,
       });
+
+	  const uri = `${Config.frontendUri}/${checkoutRequest.id}`;
+      await discordService.send(
+        `${partner.companyName} created order trackingId: ${checkoutRequest.id}. payment link: ${uri}`
+      );
+
       res.status(200).json({
         id: checkoutRequest.id,
         uri: `${Config.frontendUri}/${checkoutRequest.id}`,
