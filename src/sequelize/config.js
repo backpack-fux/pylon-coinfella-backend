@@ -1,6 +1,5 @@
 const path = require('path');
 require('dotenv').config();
-
 const config = {
   database: process.env.POSTGRES_DATABASE,
   username: process.env.POSTGRES_USER,

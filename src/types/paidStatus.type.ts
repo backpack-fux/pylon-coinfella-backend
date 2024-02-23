@@ -3,5 +3,6 @@ export enum PaidStatus {
   Pending = 'pending',
   Paid = 'paid',
   Postponed = 'postponed',
+  Transferring = 'transferring',
   Error = 'error',
 }

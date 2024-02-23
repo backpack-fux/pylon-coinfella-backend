@@ -258,7 +258,7 @@ export class CheckoutService {
       const isEnabledAssetTransfer = await settingsService.getSetting("assetTransfer");
 
       if (!isEnabledAssetTransfer) {
-        await this.markAsCheckout(checkout, PaidStatus.Paid);
+        await this.markAsCheckout(checkout, PaidStatus.Transferring);
         await this.notification.publishTransactionStatus({
           checkoutId: checkout.id,
           step: CheckoutStep.Charge,
@@ -268,7 +268,8 @@ export class CheckoutService {
           message: `Charged ${checkout.totalChargeAmountMoney.toUnit()}`,
           date: new Date()
         });
-        await checkout.sendReceipt();
+        // we're sending a receipt from our end as well with details of the charge
+        // await checkout.sendReceipt();
       } else {
         await this.markAsCheckout(checkout, PaidStatus.Processing);
         await this.processTransferAsset(checkout);

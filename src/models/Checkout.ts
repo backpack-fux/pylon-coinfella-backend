@@ -136,7 +136,7 @@ export class Checkout extends Model<Checkout> {
 
   @AllowNull(false)
   @Default("pending")
-  @Column(DataType.ENUM("pending", "processing", "paid", "postponed", "error"))
+  @Column(DataType.ENUM("pending", "processing", "paid", "postponed","transferring", "error"))
   status!: PaidStatus;
 
   @Column(DataType.DATE)
