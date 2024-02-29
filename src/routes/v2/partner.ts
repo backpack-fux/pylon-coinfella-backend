@@ -352,7 +352,7 @@ router.post(
         .optional()
         .isEmail()
         .run(req);
-      await check("fee", "Fee is invalid").isNumeric().run(req);
+      // await check("fee", "Fee is invalid").isNumeric().run(req);
       await check("amount", "Amount is required").notEmpty().run(req);
       await check("amount", "Amount should numeric").isNumeric().run(req);
       await check("walletAddress", "Wallet address is required")
@@ -361,7 +361,7 @@ router.post(
 
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
+        errors.throw();
       }
 
       
