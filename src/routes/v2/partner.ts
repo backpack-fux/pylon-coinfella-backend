@@ -364,19 +364,17 @@ router.post(
         errors.throw();
       }
 
-      
-
       if (!partner.isApproved) {
         throw new Error("Your account is not approved yet. please wait.");
       }
       
-      const combinedFee = Number(partner.fee) + Number(data.fee);
+      // const combinedFee = Number(partner.fee) + Number(data.fee);
 
-      if (combinedFee < Config.defaultFee.minFee) {
-        throw new Error(
-          `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
-        );
-      }
+      // if (combinedFee < Config.defaultFee.minFee) {
+      //   throw new Error(
+      //     `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
+      //   );
+      // }
 
       const checkoutRequest = await CheckoutRequest.generateCheckoutRequest({
         firstName: data.firstName,
@@ -391,7 +389,7 @@ router.post(
         amount: data.amount,
         walletAddress: data.walletAddress,
         partnerOrderId: data.partnerOrderId,
-        fee: combinedFee,
+        fee: partner.fee,
         feeType: partner.feeType,
         feeMethod: partner.feeMethod,
         partnerId: partner.id,
