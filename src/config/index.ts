@@ -12,8 +12,8 @@ export const Config = {
   discordUri: process.env.DISCORD_URI,
   frontendUri: process.env.FRONT_END_URI || "https://test.checkout.mybackpack.app",
   defaultFee: {
-    minFee: 4.5,
-    fee: 6.5,
+    minFee: 3.5,
+    fee: 3.5,
     feeType: "percent"
   },
   web3: {

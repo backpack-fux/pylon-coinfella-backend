@@ -9,20 +9,20 @@ import { authMiddlewareForPartner } from "../../middleware/auth";
 import { CheckoutRequest } from "../../models/CheckoutRequest";
 import { Partner } from "../../models/Partner";
 
-import { UserService } from "../../services/userService";
 import { BridgeService } from "../../services/bridgeService";
 import { DiscordService } from "../../services/discordService";
+import { UserService } from "../../services/userService";
 
-import { log } from "../../utils";
-import { KycLink } from "../../models/KycLink";
 import { WhereOptions } from "sequelize";
-import { UserStatus } from "../../types/userStatus.type";
-import { Checkout } from "../../models/Checkout";
-import { Charge } from "../../models/Charge";
 import { AssetTransfer } from "../../models/AssetTransfer";
+import { Charge } from "../../models/Charge";
+import { Checkout } from "../../models/Checkout";
+import { KycLink } from "../../models/KycLink";
 import { User } from "../../models/User";
-import { normalizeOrder, normalizeStatus } from "../../utils/convert";
 import { TosStatus } from "../../types/tosStatus.type";
+import { UserStatus } from "../../types/userStatus.type";
+import { log } from "../../utils";
+import { normalizeOrder, normalizeStatus } from "../../utils/convert";
 
 const router = express.Router();
 const bridgeService = BridgeService.getInstance();
@@ -343,6 +343,7 @@ router.post(
       "Start create partner order"
     );
 
+    // Keep an eye on the fee 👀
     try {
       await check("phoneNumber", "Phone number is invalid")
         .optional()
