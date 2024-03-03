@@ -152,6 +152,11 @@ export class CheckoutRequest extends Model<CheckoutRequest> {
   fee!: number;
 
   @AllowNull(false)
+  @Default(0)
+  @Column(DataType.DECIMAL(10, 2))
+  postFee!: number;
+
+  @AllowNull(false)
   @Default("percent")
   @Column(DataType.ENUM("cash", "percent"))
   feeType!: TipType;

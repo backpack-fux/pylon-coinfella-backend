@@ -352,7 +352,7 @@ router.post(
         .optional()
         .isEmail()
         .run(req);
-      await check("fee", "Fee is invalid").isNumeric().run(req);
+      await check("postFee", "postFee is invalid").isNumeric().run(req);
       await check("amount", "Amount is required").notEmpty().run(req);
       await check("amount", "Amount should numeric").isNumeric().run(req);
       await check("walletAddress", "Wallet address is required")
@@ -364,18 +364,8 @@ router.post(
         return res.status(422).json({ errors: errors.array() });
       }
 
-      
-
       if (!partner.isApproved) {
         throw new Error("Your account is not approved yet. please wait.");
-      }
-      
-      const combinedFee = Number(partner.fee) + Number(data.fee);
-
-      if (combinedFee < Config.defaultFee.minFee) {
-        throw new Error(
-          `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
-        );
       }
 
       const checkoutRequest = await CheckoutRequest.generateCheckoutRequest({
@@ -391,7 +381,8 @@ router.post(
         amount: data.amount,
         walletAddress: data.walletAddress,
         partnerOrderId: data.partnerOrderId,
-        fee: combinedFee,
+        fee: partner.fee,
+        postFee: data.postFee,
         feeType: partner.feeType,
         feeMethod: partner.feeMethod,
         partnerId: partner.id,

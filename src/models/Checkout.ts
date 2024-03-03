@@ -95,6 +95,11 @@ export class Checkout extends Model<Checkout> {
   fee!: number;
 
   @AllowNull(false)
+  @Default(0)
+  @Column(DataType.DECIMAL(10, 2))
+  postFee!: number;
+
+  @AllowNull(false)
   @Default("cash")
   @Column(DataType.ENUM("cash", "percent"))
   feeType!: TipType;
@@ -227,6 +232,10 @@ export class Checkout extends Model<Checkout> {
     }
 
     return amountMoney.multiply(Number(this.fee) / 100);
+  }
+
+  get postAmountFee() {
+    return this.amountMoney.multiply((this.postFee) / 100);
   }
 
   getAssetTransferMoney(amount: number) {
