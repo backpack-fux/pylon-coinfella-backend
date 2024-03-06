@@ -119,6 +119,9 @@ dependencies:
   short-uuid:
     specifier: ^4.2.2
     version: 4.2.2
+  typescript:
+    specifier: 4.9.5
+    version: 4.9.5
   umzug:
     specifier: ^3.7.0
     version: 3.7.0
@@ -178,9 +181,6 @@ devDependencies:
   typedi:
     specifier: 0.8.0
     version: 0.8.0
-  typescript:
-    specifier: 4.9.5
-    version: 4.9.5
 
 packages:
 
@@ -6737,7 +6737,6 @@ packages:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /ultron@1.1.1:
     resolution: {integrity: sha512-UIEXBNeYmKptWH6z8ZnqTeS8fV74zG0/eRU9VGkpzz+LIJNs8W/zM/L+7ctCkRrgbNnnR0xxw4bKOr0cW0N0Og==}
