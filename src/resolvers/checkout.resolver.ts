@@ -51,8 +51,7 @@ export class CheckoutResolver {
       throw new Error("Required user registration for purchasing over $500");
     }
 
-    const res = checkoutService.process(data).then(async () => {
-      console.log("Mutation: Process checkout service");
+    return checkoutService.process(data);
 
     //   const checkouts = await Checkout.findAll({
     //     where: {
@@ -68,8 +67,6 @@ export class CheckoutResolver {
     //       throw new Error("Failed to process checkout");
     //     }
     //   }
-    });
-    return res;
   }
 
   @Mutation(() => CheckoutType)
