@@ -8,7 +8,7 @@
     "staging": "NODE_ENV=staging pm2 start dist/index.js",
     "start": "NODE_ENV=production node dist/index.js",
     "production": "NODE_ENV=production pm2 start dist/index.js",
-    "build": "pnpx tsc --extendedDiagnostics",
+    "build": "npx tsc --extendedDiagnostics",
     "build:schema": "gql-gen",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed:all": "sequelize-cli db:seed:all",
