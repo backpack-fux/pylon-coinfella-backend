@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "pnpm run build && pnpm run db:migrate && pnpm run db:seed:all",
-  "installCommand": "npm install -g typescript && pnpm install",
+  "installCommand": "npm install typescript && pnpm install",
   "crons": [
     {
       "path": "/jobs/processCheckoutWorker",
