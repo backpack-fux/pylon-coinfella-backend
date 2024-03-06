@@ -8,7 +8,7 @@
     "staging": "NODE_ENV=staging pm2 start dist/index.js",
     "start": "NODE_ENV=production node dist/index.js",
     "production": "NODE_ENV=production pm2 start dist/index.js",
-    "build": "npx tsc --extendedDiagnostics",
+    "build": "pnpx tsc --extendedDiagnostics",
     "build:schema": "gql-gen",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed:all": "sequelize-cli db:seed:all",
@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@types/async-lock": "^1.4.2",
-	"@types/body-parser": "1.19.5",
+	  "@types/body-parser": "1.19.5",
     "@types/cors": "2.8.17",
     "@types/dinero.js": "^1.9.4",
     "@types/express": "^4.17.21",
