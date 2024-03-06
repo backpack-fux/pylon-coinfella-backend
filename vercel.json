@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "pnpm run build && pnpm run db:migrate && pnpm run db:seed:all",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --global --ignore-scripts",
   "crons": [
     {
       "path": "/jobs/processCheckoutWorker",
