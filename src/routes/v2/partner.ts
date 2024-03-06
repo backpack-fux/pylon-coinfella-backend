@@ -9,20 +9,20 @@ import { authMiddlewareForPartner } from "../../middleware/auth";
 import { CheckoutRequest } from "../../models/CheckoutRequest";
 import { Partner } from "../../models/Partner";
 
-import { UserService } from "../../services/userService";
 import { BridgeService } from "../../services/bridgeService";
 import { DiscordService } from "../../services/discordService";
+import { UserService } from "../../services/userService";
 
-import { log } from "../../utils";
-import { KycLink } from "../../models/KycLink";
 import { WhereOptions } from "sequelize";
-import { UserStatus } from "../../types/userStatus.type";
-import { Checkout } from "../../models/Checkout";
-import { Charge } from "../../models/Charge";
 import { AssetTransfer } from "../../models/AssetTransfer";
+import { Charge } from "../../models/Charge";
+import { Checkout } from "../../models/Checkout";
+import { KycLink } from "../../models/KycLink";
 import { User } from "../../models/User";
-import { normalizeOrder, normalizeStatus } from "../../utils/convert";
 import { TosStatus } from "../../types/tosStatus.type";
+import { UserStatus } from "../../types/userStatus.type";
+import { log } from "../../utils";
+import { normalizeOrder, normalizeStatus } from "../../utils/convert";
 
 const router = express.Router();
 const bridgeService = BridgeService.getInstance();
@@ -352,7 +352,7 @@ router.post(
         .optional()
         .isEmail()
         .run(req);
-      await check("fee", "Fee is invalid").isNumeric().run(req);
+      // await check("fee", "Fee is invalid").isNumeric().run(req);
       await check("amount", "Amount is required").notEmpty().run(req);
       await check("amount", "Amount should numeric").isNumeric().run(req);
       await check("walletAddress", "Wallet address is required")
@@ -368,13 +368,13 @@ router.post(
         throw new Error("Your account is not approved yet. please wait.");
       }
       
-      const combinedFee = Number(partner.fee) + Number(data.fee);
+      // const combinedFee = Number(partner.fee) + Number(data.fee);
 
-      if (combinedFee < Config.defaultFee.minFee) {
-        throw new Error(
-          `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
-        );
-      }
+      // if (combinedFee < Config.defaultFee.minFee) {
+      //   throw new Error(
+      //     `The fee should greater than or equal to ${Config.defaultFee.minFee}%`
+      //   );
+      // }
 
       const checkoutRequest = await CheckoutRequest.generateCheckoutRequest({
         firstName: data.firstName,
@@ -389,7 +389,7 @@ router.post(
         amount: data.amount,
         walletAddress: data.walletAddress,
         partnerOrderId: data.partnerOrderId,
-        fee: combinedFee,
+        fee: partner.fee,
         feeType: partner.feeType,
         feeMethod: partner.feeMethod,
         partnerId: partner.id,
