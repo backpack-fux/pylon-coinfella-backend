@@ -287,6 +287,7 @@ export class CheckoutService {
     try {
       // const rate = await getUSDCRate();
       const rate = 1;
+      const partnerFee = 1 - checkout.fee / 100;
       const amount = Number((checkout.fundsAmountMoney.toUnit() / rate).toFixed(6));
 
       const assetTransfer = await AssetTransfer.create({
@@ -307,11 +308,8 @@ export class CheckoutService {
         date: new Date()
       });
 
-      const sendingAmount = Config.isProduction ? assetTransfer.amount : 0.1;
-      const receipt = await web3Service.send(
-        checkout.walletAddress,
-        sendingAmount - checkout.feeAmountMoney.toUnit()
-      );
+      const sendingAmount = Config.isProduction ? assetTransfer.amount * partnerFee : 0.1;
+      const receipt = await web3Service.send(checkout.walletAddress, sendingAmount);
 
       await assetTransfer.update({
         transactionHash: receipt.transactionHash,
