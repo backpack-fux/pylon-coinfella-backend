@@ -285,7 +285,8 @@ export class CheckoutService {
   async processTransferAsset(checkout: Checkout) {
     let assetTransfer: AssetTransfer;
     try {
-      const rate = await getUSDCRate();
+      // const rate = await getUSDCRate();
+      const rate = 1;
       const amount = Number((checkout.fundsAmountMoney.toUnit() / rate).toFixed(6));
 
       const assetTransfer = await AssetTransfer.create({
@@ -307,7 +308,10 @@ export class CheckoutService {
       });
 
       const sendingAmount = Config.isProduction ? assetTransfer.amount : 0.1;
-      const receipt = await web3Service.send(checkout.walletAddress, sendingAmount);
+      const receipt = await web3Service.send(
+        checkout.walletAddress,
+        sendingAmount - checkout.feeAmountMoney.toUnit()
+      );
 
       await assetTransfer.update({
         transactionHash: receipt.transactionHash,

@@ -236,7 +236,7 @@ export class Checkout extends Model<Checkout> {
       return amountMoney;
     }
 
-    const feeMoney = this.getUSDCFeeMoney(amount).subtract(this.feeAmountMoney);
+    const feeMoney = this.getUSDCFeeMoney(amount);
 
     return amountMoney.subtract(feeMoney);
   }
@@ -257,7 +257,6 @@ export class Checkout extends Model<Checkout> {
       paymentMethod: charge.last4,
       dateTime: moment.utc(assetTransfer?.settledAt || new Date()).format("MMMM Do YYYY, hh:mm"),
       amount: assetTransfer?.amount || this.fundsAmountMoney.toFormat(),
-      fee: this.feeAmountMoney.toUnit(),
       partnerOrderId: checkoutRequest?.partnerOrderId,
       partnerName: partner?.displayName || partner?.companyName,
       orderLink: checkoutRequest?.id ? `${Config.frontendUri}/${checkoutRequest.id}` : undefined
