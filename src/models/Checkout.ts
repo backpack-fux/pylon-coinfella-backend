@@ -9,7 +9,7 @@ import {
   IsEmail,
   ForeignKey,
   BelongsTo,
-  HasOne,
+  HasOne
 } from "sequelize-typescript";
 import { PaidStatus } from "../types/paidStatus.type";
 import { TipType } from "../types/tip.type";
@@ -27,8 +27,8 @@ import { FeeMethod } from "../types/feeMethod.enum";
   tableName: "checkouts",
   name: {
     singular: "checkout",
-    plural: "checkouts",
-  },
+    plural: "checkouts"
+  }
 })
 export class Checkout extends Model<Checkout> {
   @PrimaryKey
@@ -209,7 +209,7 @@ export class Checkout extends Model<Checkout> {
   get totalChargeAmountMoney() {
     if (this.feeMethod === FeeMethod.Card) {
       // Card
-      return this.fundsAmountMoney.add(this.feeAmountMoney);
+      return this.fundsAmountMoney;
     }
 
     return this.fundsAmountMoney;
@@ -255,16 +255,11 @@ export class Checkout extends Model<Checkout> {
       name: this.fullName,
       transactionHash: `${Config.web3.explorerUri}/tx/${assetTransfer?.transactionHash}`,
       paymentMethod: charge.last4,
-      dateTime: moment
-        .utc(assetTransfer?.settledAt || new Date())
-        .format("MMMM Do YYYY, hh:mm"),
+      dateTime: moment.utc(assetTransfer?.settledAt || new Date()).format("MMMM Do YYYY, hh:mm"),
       amount: assetTransfer?.amount || this.fundsAmountMoney.toFormat(),
-      fee: this.feeAmountMoney.toUnit(),
       partnerOrderId: checkoutRequest?.partnerOrderId,
       partnerName: partner?.displayName || partner?.companyName,
-      orderLink: checkoutRequest?.id
-        ? `${Config.frontendUri}/${checkoutRequest.id}`
-        : undefined,
+      orderLink: checkoutRequest?.id ? `${Config.frontendUri}/${checkoutRequest.id}` : undefined
     });
   }
 }
