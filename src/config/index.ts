@@ -10,7 +10,7 @@ export const Config = {
   isStaging: process.env.NODE_ENV === "staging",
   subscriptionUri: process.env.SUBSCRIPTION_URI,
   discordUri: process.env.DISCORD_URI,
-  frontendUri: process.env.FRONT_END_URI || "https://test.checkout.mybackpack.app",
+  frontendUri: process.env.FRONT_END_URI || "https://bp1.pylon.im",
   defaultFee: {
     minFee: 3.5,
     fee: 3.5,
