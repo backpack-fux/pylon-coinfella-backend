@@ -342,9 +342,9 @@ router.post("/v2/partners/orders", authMiddlewareForPartner, async (req, res) =>
       errors.throw();
     }
 
-    if (!partner.isApproved) {
-      throw new Error("Your account is not approved yet. please wait.");
-    }
+    // if (!partner.isApproved) {
+    //   throw new Error("Your account is not approved yet. please wait.");
+    // }
 
     // const combinedFee = Number(partner.fee) + Number(data.fee);
 
