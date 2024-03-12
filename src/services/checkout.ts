@@ -89,6 +89,7 @@ export class CheckoutService {
 
     const checkout = await Checkout.create({
       ...data,
+      postFee: checkoutRequest.postFee,
       userId: user?.id,
       fee: data.fee || Config.defaultFee.fee,
       feeType: (data.feeType || Config.defaultFee.feeType) as TipType
@@ -287,26 +288,26 @@ export class CheckoutService {
     try {
       const rate = await getUSDCRate();
       const amount = Number((checkout.fundsAmountMoney.toUnit() / rate).toFixed(6));
-
-      const assetTransfer = await AssetTransfer.create({
+      const postFee = Number(checkout.postAmountFee.toUnit()/ rate);
+      assetTransfer = await AssetTransfer.create({
         checkoutId: checkout.id,
         status: PaidStatus.Processing,
         rate,
         amount,
-        fee: 0
+        fee: postFee
       });
+      const sendingAmount = Config.isProduction ? assetTransfer.getFinalAmount : 0.1;
 
       await this.notification.publishTransactionStatus({
         checkoutId: checkout.id,
         step: CheckoutStep.Asset,
         status: "processing",
         paidStatus: checkout.status,
-        message: `Sending ${assetTransfer.amount} USDC`,
+        message: `Sending ${sendingAmount} USDC`,
         transactionId: null,
         date: new Date()
       });
 
-      const sendingAmount = Config.isProduction ? assetTransfer.amount : 0.1;
       const receipt = await web3Service.send(checkout.walletAddress, sendingAmount);
 
       await assetTransfer.update({
@@ -324,7 +325,7 @@ export class CheckoutService {
       }
 
       if (!receipt.status) {
-        throw new Error(`Failed sending ${assetTransfer.amount} USDC`);
+        throw new Error(`Failed sending ${sendingAmount} USDC`);
       }
 
       await this.markAsCheckout(checkout, PaidStatus.Paid);
@@ -334,12 +335,13 @@ export class CheckoutService {
         status: "settled",
         paidStatus: checkout.status,
         transactionId: receipt.transactionHash,
-        message: `Sent ${assetTransfer.amount} USDC`,
+        message: `Sent ${sendingAmount} USDC`,
         date: new Date()
       });
 
       await checkout.sendReceipt();
     } catch (err) {
+      const sendingAmount = assetTransfer ? Config.isProduction ? assetTransfer.getFinalAmount : 0.1 : "0"
       log.warn(
         {
           func: "processTransferAsset",
@@ -362,7 +364,7 @@ export class CheckoutService {
         paidStatus: checkout.status,
         step: CheckoutStep.Asset,
         message: assetTransfer
-          ? `Failed sending ${assetTransfer.amount} USDC`
+          ? `Failed sending ${sendingAmount} USDC`
           : "Failed sending assets",
         transactionId: null,
         date: new Date()
