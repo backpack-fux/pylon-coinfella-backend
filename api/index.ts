@@ -1,12 +1,12 @@
-import express, { Request, Response } from "express";
-require("dotenv").config();
+import bodyParser from "body-parser";
 import cors from "cors";
-import models from "../src/models";
-import { resError } from "../src/middleware/resError";
+import express, { Request, Response } from "express";
 import { initAuth } from "../src/auth";
 import { initGraphql } from "../src/graphql";
-import bodyParser from "body-parser";
+import { resError } from "../src/middleware/resError";
+import models from "../src/models";
 import { initRoutes } from "../src/routes";
+require("dotenv").config();
 
 const { sequelize } = models;
 
@@ -16,7 +16,7 @@ const bootstrap = async () => {
   await sequelize.authenticate();
 
   app.get("/", (_req: Request, res: Response) => {
-    return res.send({ "Sinful API": "v1.0" });
+    return res.send({ "BP1 API": "v1.0" });
   });
 
   app.use(cors());
