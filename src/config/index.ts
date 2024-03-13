@@ -9,17 +9,17 @@ export const Config = {
   isProduction: process.env.NODE_ENV === "production",
   isStaging: process.env.NODE_ENV === "staging",
   subscriptionUri: process.env.SUBSCRIPTION_URI,
-  frontendUri:
-    process.env.FRONT_END_URI || "https://test.checkout.mybackpack.app",
+  discordUri: process.env.DISCORD_URI,
+  frontendUri: process.env.FRONT_END_URI || "https://test.checkout.mybackpack.app",
   defaultFee: {
     minFee: 4.5,
     fee: 6.5,
-    feeType: "percent",
+    feeType: "percent"
   },
   web3: {
     providerUri: process.env.ALCHEMY_URI,
     usdcContractAddress: process.env.USDC_CONTRACT_ADDRESS,
     usdcPoolPrivateKey: process.env.USDC_POOL_PRIVATE_KEY,
-    explorerUri: process.env.EXPLORER_URI,
-  },
+    explorerUri: process.env.EXPLORER_URI
+  }
 };

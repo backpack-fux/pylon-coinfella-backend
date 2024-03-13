@@ -1,12 +1,13 @@
-import { Arg, Ctx, Mutation, Query, Resolver, Root, Subscription } from 'type-graphql';
-import { Checkout } from '../models/Checkout';
-import { CheckoutService } from '../services/checkout';
-import { CheckoutInputType } from '../types/checkout-input.type';
-import { CheckoutType } from '../types/checkout.type';
-import { log } from '../utils';
-import { User } from '../models/User';
+import { Arg, Ctx, Mutation, Query, Resolver, Root, Subscription } from "type-graphql";
+import { Checkout } from "../models/Checkout";
+import { CheckoutService } from "../services/checkout";
+import { CheckoutInputType } from "../types/checkout-input.type";
+import { CheckoutType } from "../types/checkout.type";
+import { log } from "../utils";
+import { User } from "../models/User";
+import { PaidStatus } from "../types/paidStatus.type";
 
-const checkoutService = CheckoutService.getInstance()
+const checkoutService = CheckoutService.getInstance();
 
 @Resolver()
 export class CheckoutResolver {
@@ -16,58 +17,71 @@ export class CheckoutResolver {
   }
 
   @Query(() => CheckoutType)
-  async checkout(@Arg('id') id: string) {
+  async checkout(@Arg("id") id: string) {
     const checkout = await Checkout.findByPk(id);
 
     if (!checkout) {
-      throw new Error(`Not found checkout for ${id}`)
+      throw new Error(`Not found checkout for ${id}`);
     }
 
-    const transaction = await checkoutService.getCheckoutStatus(checkout)
+    const transaction = await checkoutService.getCheckoutStatus(checkout);
 
     return {
       ...checkout.toJSON(),
       transaction
-    }
+    };
   }
 
   @Mutation(() => CheckoutType)
-  async createCheckoutWithoutUser(
-    @Arg('data') data: CheckoutInputType,
-  ) {
+  async createCheckoutWithoutUser(@Arg("data") data: CheckoutInputType) {
     log.info({
-      func: 'createCheckout',
+      func: "createCheckout",
       data
-    })
+    });
 
-    const totalAmount = data.amount + data.amount * (data.tip || 0) / 100
-    const user = data.userId && await User.findByPk(data.userId)
+    const totalAmount = data.amount + (data.amount * (data.tip || 0)) / 100;
+    const user = data.userId && (await User.findByPk(data.userId));
 
     if (user && !user.isVerified) {
-      throw new Error('Please process KYC before trading')
+      throw new Error("Please process KYC before trading");
     }
 
     // modified for a tx to test size limit
     if (totalAmount >= 500 && !user) {
-      throw new Error('Required user registration for purchasing over $500')
+      throw new Error("Required user registration for purchasing over $500");
     }
 
-    return checkoutService.process(data);
+    const res = checkoutService.process(data).then(async () => {
+      console.log("Mutation: Process checkout service");
+
+    //   const checkouts = await Checkout.findAll({
+    //     where: {
+    //       status: PaidStatus.Pending
+    //     }
+    //   });
+
+    //   for (const checkout of checkouts) {
+    //     try {
+    //       await checkoutService.processCheckout(checkout);
+    //     } catch (err) {
+    //       console.log("error: ", err);
+    //       throw new Error("Failed to process checkout");
+    //     }
+    //   }
+    });
+    return res;
   }
 
   @Mutation(() => CheckoutType)
-  async createCheckout(
-    @Ctx('user') user: any,
-    @Arg('data') data: CheckoutInputType,
-  ) {
+  async createCheckout(@Ctx("user") user: any, @Arg("data") data: CheckoutInputType) {
     log.info({
-      func: 'createCheckout',
+      func: "createCheckout",
       data,
       user
-    })
+    });
 
     if (!user.isVerified) {
-      throw new Error('Please process KYC before trading')
+      throw new Error("Please process KYC before trading");
     }
 
     return checkoutService.process(data, user);

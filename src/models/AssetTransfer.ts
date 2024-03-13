@@ -68,4 +68,9 @@ export class AssetTransfer extends Model<AssetTransfer> {
   setCheckout!: (caller: Checkout) => void;
 
   //#endregion
+
+
+  get getFinalAmount(): number {
+    return this.amount - this.fee;
+  }
 }
