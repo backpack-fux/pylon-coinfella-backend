@@ -269,7 +269,8 @@ export class CheckoutService {
           message: `Charged ${checkout.totalChargeAmountMoney.toUnit()}`,
           date: new Date()
         });
-        await checkout.sendReceipt();
+        // Receipts will be sent by coinfellas end
+        // await checkout.sendReceipt();
       } else {
         await this.markAsCheckout(checkout, PaidStatus.Processing);
         await this.processTransferAsset(checkout);
@@ -339,7 +340,8 @@ export class CheckoutService {
         date: new Date()
       });
 
-      await checkout.sendReceipt();
+      // Receipts will be sent by coinfellas end
+      // await checkout.sendReceipt();
     } catch (err) {
       const sendingAmount = assetTransfer ? Config.isProduction ? assetTransfer.getFinalAmount : 0.1 : "0"
       log.warn(
