@@ -35,7 +35,7 @@ export class CheckoutResolver {
   @Mutation(() => CheckoutType)
   async createCheckoutWithoutUser(@Arg("data") data: CheckoutInputType) {
     log.info({
-      func: "createCheckout",
+      func: "createCheckoutWithoutUser",
       data
     });
 
@@ -51,25 +51,7 @@ export class CheckoutResolver {
       throw new Error("Required user registration for purchasing over $500");
     }
 
-    const res = checkoutService.process(data).then(async () => {
-      console.log("Mutation: Process checkout service");
-
-    //   const checkouts = await Checkout.findAll({
-    //     where: {
-    //       status: PaidStatus.Pending
-    //     }
-    //   });
-
-    //   for (const checkout of checkouts) {
-    //     try {
-    //       await checkoutService.processCheckout(checkout);
-    //     } catch (err) {
-    //       console.log("error: ", err);
-    //       throw new Error("Failed to process checkout");
-    //     }
-    //   }
-    });
-    return res;
+    return checkoutService.process(data)
   }
 
   @Mutation(() => CheckoutType)
