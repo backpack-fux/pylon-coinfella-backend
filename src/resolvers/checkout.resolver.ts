@@ -36,7 +36,7 @@ export class CheckoutResolver {
     @Arg('data') data: CheckoutInputType,
   ) {
     log.info({
-      func: 'createCheckoutWithoutUser',
+      func: 'createCheckout',
       data
     })
 
@@ -53,7 +53,7 @@ export class CheckoutResolver {
     }
 
     const processedCheckout = await checkoutService.process(data);
-    log.info('processedCheckout', processedCheckout.id);
+    console.log('processedCheckout', processedCheckout.id);
     
     return processedCheckout;
   }
