@@ -52,7 +52,10 @@ export class CheckoutResolver {
       throw new Error('Required user registration for purchasing over $500')
     }
 
-    return checkoutService.process(data);
+    const processedCheckout = await checkoutService.process(data);
+    console.log('processedCheckout', processedCheckout.id);
+    
+    return processedCheckout;
   }
 
   @Mutation(() => CheckoutType)
